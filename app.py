@@ -288,7 +288,7 @@ def build_page1(year):
         html.Div(className='page-body', children=[
             insight_panel(
                 'THE BUSINESS PROBLEM',
-                "Nykaa has not matched Beauty's EBITDA margins in Fashion, despite Fashion being in the market for ~8 years and operating with a broadly similar platform model."
+                "Nykaa hasn’t been able to match Beauty’s EBITDA margins in Fashion, despite running a similar business model, and operating in the market for eight years."
             ),
             html.Div(className='nykaa-edge-line', style={'marginTop': '24px'}),
             methodology_badge('P1/P2', 'Nykaa reported or derived'),
