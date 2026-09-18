@@ -286,7 +286,11 @@ def build_page1(year):
             'NYKAA FASHION × BEAUTY',
         ),
         html.Div(className='page-body', children=[
-            html.Div(className='nykaa-edge-line'),
+            insight_panel(
+                'THE BUSINESS PROBLEM',
+                "Nykaa has not matched Beauty's EBITDA margins in Fashion, despite Fashion being in the market for ~8 years and operating with a broadly similar platform model."
+            ),
+            html.Div(className='nykaa-edge-line', style={'marginTop': '24px'}),
             methodology_badge('P1/P2', 'Nykaa reported or derived'),
             hero_kpis,
             charts,
