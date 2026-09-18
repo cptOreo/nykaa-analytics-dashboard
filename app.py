@@ -30,7 +30,7 @@ def make_topnav():
         nav_links.append(dcc.Link(label, href=href, id=f'nav-{href.strip("/") or "home"}', className='nav-link'))
     
     return html.Div(className='editorial-nav', children=[
-        html.Div("NYKAA", className='nav-brand'),
+        html.Img(src='https://upload.wikimedia.org/wikipedia/commons/0/00/Nykaa_New_Logo.svg', style={'height': '28px', 'marginRight': '60px', 'marginBottom': '4px'}),
         html.Div(className='nav-links', children=nav_links),
         html.Div(className='nav-filters', children=[
             html.Label("FY"),
