@@ -1,0 +1,201 @@
+respondent_id,synthetic_flag,age_group,online_shopping_frequency,category,primary_platform,orders_6m_band,monthly_spend_band,monthly_spend_mid_inr,typical_order_value_band,aov_mid_inr,same_platform_frequency,returned_last5,return_rate,return_reason,repeat_purchase_6m,repeat_purchase_flag,repurchase_intent_3m_1_5,preferred_platform_spend_share_band,share_requirements_mid_pct
+R001,True,25–34,<1×/month,Fashion,Myntra,3–4,"₹1,000–₹2,499",1750,"<₹1,000",750,1× every 3–6m,2,0.4,Colour differed from expectation,No,0,4,50–74%,62
+R001,True,25–34,<1×/month,Beauty,Nykaa,3–4,"₹2,500–₹4,999",3750,"₹1,000–₹2,499",1750,1× every 1–3m,1,0.2,Product looked different from images,Yes,1,2,<10%,5
+R002,True,18–24,3–5×/month,Fashion,Amazon,1,"₹1,000–₹2,499",1750,"<₹1,000",750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,4,10–24%,17
+R002,True,18–24,3–5×/month,Beauty,Amazon,3–4,"₹1,000–₹2,499",1750,"₹2,500–₹4,999",3750,1× every 3–6m,2,0.4,Other,Yes,1,5,25–49%,37
+R003,True,25–34,1–2×/month,Fashion,Myntra,3–4,"<₹1,000",500,"₹1,000–₹2,499",1750,1× every 3–6m,2,0.4,Changed my mind,Yes,1,5,10–24%,17
+R003,True,25–34,1–2×/month,Beauty,Purplle,>10,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,1× every 3–6m,1,0.2,Changed my mind,Yes,1,4,75–99%,87
+R004,True,45+,3–5×/month,Fashion,AJIO,1,"₹20,000+",25000,"₹10,000+",12500,1× every 1–3m,0,0.0,No return in last 5 orders,No,0,2,10–24%,17
+R004,True,45+,3–5×/month,Beauty,Nykaa,1,"₹2,500–₹4,999",3750,"₹5,000–₹7,499",6250,1× every 3–6m,1,0.2,Damaged / defective,Yes,1,4,50–74%,62
+R005,True,25–34,6–10×/month,Fashion,Myntra,3–4,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,1× every 1–3m,1,0.2,Material/fabric differed,No,0,5,<10%,5
+R005,True,25–34,6–10×/month,Beauty,Nykaa,3–4,"₹1,000–₹2,499",1750,"₹7,500–₹9,999",8750,1× every 1–3m,0,0.0,No return in last 5 orders,No,0,4,50–74%,62
+R006,True,45+,6–10×/month,Fashion,AJIO,5–7,"₹1,000–₹2,499",1750,"<₹1,000",750,1× every 1–3m,2,0.4,Product quality,Yes,1,5,<10%,5
+R006,True,45+,6–10×/month,Beauty,Nykaa,5–7,"<₹1,000",500,"₹1,000–₹2,499",1750,>1×/month,0,0.0,No return in last 5 orders,Yes,1,4,<10%,5
+R007,True,25–34,1–2×/month,Fashion,Myntra,1,"₹1,000–₹2,499",1750,"₹5,000–₹7,499",6250,<1× every 6m,1,0.2,Size / fit,Yes,1,5,10–24%,17
+R007,True,25–34,1–2×/month,Beauty,Nykaa,3–4,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,3,75–99%,87
+R008,True,18–24,3–5×/month,Fashion,AJIO,1,"₹20,000+",25000,"₹5,000–₹7,499",6250,1× every 1–3m,5,1.0,Size / fit,No,0,4,50–74%,62
+R008,True,18–24,3–5×/month,Beauty,Nykaa,3–4,"₹2,500–₹4,999",3750,"<₹1,000",750,>1×/month,0,0.0,No return in last 5 orders,Yes,1,5,<10%,5
+R009,True,18–24,1–2×/month,Fashion,Myntra,8–10,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,1× every 3–6m,1,0.2,Colour differed from expectation,Yes,1,4,<10%,5
+R009,True,18–24,1–2×/month,Beauty,Tira,3–4,"₹5,000–₹9,999",7500,"₹1,000–₹2,499",1750,1× every 3–6m,1,0.2,Product quality,Yes,1,5,25–49%,37
+R010,True,35–44,6–10×/month,Fashion,AJIO,5–7,"<₹1,000",500,"₹1,000–₹2,499",1750,1× every 3–6m,2,0.4,Size / fit,No,0,4,25–49%,37
+R010,True,35–44,6–10×/month,Beauty,Nykaa,>10,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,1× every 3–6m,0,0.0,No return in last 5 orders,Yes,1,5,10–24%,17
+R011,True,45+,1–2×/month,Fashion,Other,3–4,"₹1,000–₹2,499",1750,"₹2,500–₹4,999",3750,>1×/month,1,0.2,Size / fit,No,0,3,10–24%,17
+R011,True,45+,1–2×/month,Beauty,Nykaa,5–7,"₹2,500–₹4,999",3750,"<₹1,000",750,>1×/month,0,0.0,No return in last 5 orders,Yes,1,2,50–74%,62
+R012,True,25–34,6–10×/month,Fashion,Myntra,1,"₹5,000–₹9,999",7500,"₹7,500–₹9,999",8750,1× every 3–6m,1,0.2,Size / fit,No,0,5,50–74%,62
+R012,True,25–34,6–10×/month,Beauty,Nykaa,5–7,"₹1,000–₹2,499",1750,"₹5,000–₹7,499",6250,>1×/month,2,0.4,Changed my mind,Yes,1,4,10–24%,17
+R013,True,25–34,6–10×/month,Fashion,AJIO,2,"₹1,000–₹2,499",1750,"₹2,500–₹4,999",3750,1× every 3–6m,0,0.0,No return in last 5 orders,Yes,1,4,75–99%,87
+R013,True,25–34,6–10×/month,Beauty,Nykaa,>10,"₹2,500–₹4,999",3750,"₹1,000–₹2,499",1750,>1×/month,3,0.6,Product quality,Yes,1,5,25–49%,37
+R014,True,25–34,3–5×/month,Fashion,Myntra,3–4,"₹5,000–₹9,999",7500,"₹1,000–₹2,499",1750,1× every 3–6m,1,0.2,Size / fit,Yes,1,5,25–49%,37
+R014,True,25–34,3–5×/month,Beauty,Nykaa,3–4,"₹2,500–₹4,999",3750,"₹1,000–₹2,499",1750,>1×/month,0,0.0,No return in last 5 orders,Yes,1,5,25–49%,37
+R015,True,25–34,1–2×/month,Fashion,Myntra,>10,"₹5,000–₹9,999",7500,"₹7,500–₹9,999",8750,Only once,1,0.2,Product looked different from images,Yes,1,5,25–49%,37
+R015,True,25–34,1–2×/month,Beauty,Nykaa,3–4,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,1× every 3–6m,1,0.2,Colour differed from expectation,Yes,1,4,75–99%,87
+R016,True,35–44,3–5×/month,Fashion,Myntra,5–7,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,>1×/month,5,1.0,Product looked different from images,No,0,4,25–49%,37
+R016,True,35–44,3–5×/month,Beauty,Nykaa,5–7,"₹5,000–₹9,999",7500,"₹5,000–₹7,499",6250,<1× every 6m,1,0.2,Colour differed from expectation,No,0,5,50–74%,62
+R017,True,18–24,3–5×/month,Fashion,Flipkart,2,"₹5,000–₹9,999",7500,"<₹1,000",750,1× every 1–3m,1,0.2,Product quality,Yes,1,5,10–24%,17
+R017,True,18–24,3–5×/month,Beauty,Nykaa,3–4,"₹10,000–₹19,999",15000,"₹5,000–₹7,499",6250,Only once,0,0.0,No return in last 5 orders,Yes,1,4,75–99%,87
+R018,True,18–24,3–5×/month,Fashion,Myntra,3–4,"<₹1,000",500,"₹1,000–₹2,499",1750,1× every 3–6m,1,0.2,Size / fit,Yes,1,4,50–74%,62
+R018,True,18–24,3–5×/month,Beauty,Nykaa,2,"₹2,500–₹4,999",3750,"₹1,000–₹2,499",1750,<1× every 6m,0,0.0,No return in last 5 orders,Yes,1,4,25–49%,37
+R019,True,45+,<1×/month,Fashion,Meesho,1,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,1× every 1–3m,3,0.6,Found a better price elsewhere,Yes,1,2,10–24%,17
+R019,True,45+,<1×/month,Beauty,Nykaa,3–4,"₹1,000–₹2,499",1750,"₹2,500–₹4,999",3750,1× every 1–3m,1,0.2,Damaged / defective,Yes,1,5,50–74%,62
+R020,True,18–24,6–10×/month,Fashion,AJIO,8–10,"₹2,500–₹4,999",3750,"₹5,000–₹7,499",6250,>1×/month,0,0.0,No return in last 5 orders,No,0,4,25–49%,37
+R020,True,18–24,6–10×/month,Beauty,Amazon,5–7,"₹1,000–₹2,499",1750,"₹2,500–₹4,999",3750,1× every 1–3m,3,0.6,Found a better price elsewhere,Yes,1,4,25–49%,37
+R021,True,18–24,3–5×/month,Fashion,Amazon,>10,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,>1×/month,1,0.2,Size / fit,Yes,1,4,25–49%,37
+R021,True,18–24,3–5×/month,Beauty,Nykaa,3–4,"₹2,500–₹4,999",3750,"₹1,000–₹2,499",1750,<1× every 6m,1,0.2,Material/fabric differed,Yes,1,4,10–24%,17
+R022,True,18–24,6–10×/month,Fashion,Meesho,3–4,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,1× every 3–6m,1,0.2,Size / fit,Yes,1,4,<10%,5
+R022,True,18–24,6–10×/month,Beauty,Nykaa,5–7,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,5,25–49%,37
+R023,True,25–34,1–2×/month,Fashion,Nykaa Fashion,1,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,2,25–49%,37
+R023,True,25–34,1–2×/month,Beauty,Nykaa,1,"₹2,500–₹4,999",3750,"₹7,500–₹9,999",8750,1× every 1–3m,2,0.4,Changed my mind,Yes,1,1,50–74%,62
+R024,True,25–34,1–2×/month,Fashion,Myntra,3–4,"₹5,000–₹9,999",7500,"₹1,000–₹2,499",1750,>1×/month,1,0.2,Colour differed from expectation,No,0,4,<10%,5
+R024,True,25–34,1–2×/month,Beauty,Nykaa,3–4,"₹10,000–₹19,999",15000,"₹1,000–₹2,499",1750,>1×/month,2,0.4,Size / fit,Yes,1,4,25–49%,37
+R025,True,25–34,3–5×/month,Fashion,AJIO,>10,"₹1,000–₹2,499",1750,"₹2,500–₹4,999",3750,1× every 1–3m,1,0.2,Size / fit,No,0,2,25–49%,37
+R025,True,25–34,3–5×/month,Beauty,Myntra,3–4,"₹5,000–₹9,999",7500,"₹1,000–₹2,499",1750,Only once,1,0.2,Damaged / defective,Yes,1,3,25–49%,37
+R026,True,25–34,6–10×/month,Fashion,Myntra,3–4,"₹5,000–₹9,999",7500,"₹2,500–₹4,999",3750,>1×/month,0,0.0,No return in last 5 orders,Yes,1,5,25–49%,37
+R026,True,25–34,6–10×/month,Beauty,Nykaa,8–10,"₹20,000+",25000,"₹1,000–₹2,499",1750,Only once,0,0.0,No return in last 5 orders,Yes,1,4,50–74%,62
+R027,True,35–44,3–5×/month,Fashion,AJIO,1,"₹1,000–₹2,499",1750,"₹2,500–₹4,999",3750,1× every 1–3m,2,0.4,Colour differed from expectation,Yes,1,3,<10%,5
+R027,True,35–44,3–5×/month,Beauty,Nykaa,5–7,"₹10,000–₹19,999",15000,"<₹1,000",750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,3,25–49%,37
+R028,True,35–44,>10×/month,Fashion,Myntra,2,"₹5,000–₹9,999",7500,"₹7,500–₹9,999",8750,>1×/month,1,0.2,Material/fabric differed,Yes,1,5,100%,100
+R028,True,35–44,>10×/month,Beauty,Nykaa,5–7,"₹2,500–₹4,999",3750,"₹1,000–₹2,499",1750,1× every 3–6m,2,0.4,Product quality,Yes,1,4,25–49%,37
+R029,True,18–24,6–10×/month,Fashion,Amazon,3–4,"<₹1,000",500,"₹1,000–₹2,499",1750,1× every 1–3m,1,0.2,Size / fit,Yes,1,5,75–99%,87
+R029,True,18–24,6–10×/month,Beauty,Nykaa,3–4,"₹20,000+",25000,"₹7,500–₹9,999",8750,>1×/month,2,0.4,Size / fit,No,0,5,<10%,5
+R030,True,35–44,6–10×/month,Fashion,AJIO,8–10,"₹2,500–₹4,999",3750,"₹10,000+",12500,1× every 3–6m,1,0.2,Size / fit,Yes,1,1,10–24%,17
+R030,True,35–44,6–10×/month,Beauty,Amazon,3–4,"₹10,000–₹19,999",15000,"₹2,500–₹4,999",3750,>1×/month,1,0.2,Size / fit,Yes,1,2,50–74%,62
+R031,True,18–24,1–2×/month,Fashion,Flipkart,5–7,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,1× every 1–3m,2,0.4,Product quality,Yes,1,4,10–24%,17
+R031,True,18–24,1–2×/month,Beauty,Other,3–4,"₹10,000–₹19,999",15000,"₹1,000–₹2,499",1750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,4,100%,100
+R032,True,45+,3–5×/month,Fashion,AJIO,>10,"₹2,500–₹4,999",3750,"₹1,000–₹2,499",1750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,1,25–49%,37
+R032,True,45+,3–5×/month,Beauty,Purplle,5–7,"₹10,000–₹19,999",15000,"₹2,500–₹4,999",3750,>1×/month,1,0.2,Product quality,Yes,1,4,50–74%,62
+R033,True,18–24,3–5×/month,Fashion,Nykaa Fashion,5–7,"₹1,000–₹2,499",1750,"₹2,500–₹4,999",3750,Only once,0,0.0,No return in last 5 orders,No,0,5,<10%,5
+R033,True,18–24,3–5×/month,Beauty,Flipkart,2,"₹5,000–₹9,999",7500,"₹2,500–₹4,999",3750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,5,100%,100
+R034,True,25–34,3–5×/month,Fashion,Myntra,5–7,"₹2,500–₹4,999",3750,"₹1,000–₹2,499",1750,1× every 3–6m,3,0.6,Material/fabric differed,Yes,1,1,<10%,5
+R034,True,25–34,3–5×/month,Beauty,Nykaa,5–7,"₹10,000–₹19,999",15000,"<₹1,000",750,>1×/month,2,0.4,Changed my mind,Yes,1,5,75–99%,87
+R035,True,18–24,3–5×/month,Fashion,Myntra,1,"₹5,000–₹9,999",7500,"₹2,500–₹4,999",3750,>1×/month,1,0.2,Found a better price elsewhere,Yes,1,4,<10%,5
+R035,True,18–24,3–5×/month,Beauty,Nykaa,5–7,"<₹1,000",500,"₹1,000–₹2,499",1750,1× every 3–6m,3,0.6,Product quality,Yes,1,5,75–99%,87
+R036,True,25–34,3–5×/month,Fashion,Myntra,5–7,"₹20,000+",25000,"₹5,000–₹7,499",6250,1× every 1–3m,0,0.0,No return in last 5 orders,No,0,3,25–49%,37
+R036,True,25–34,3–5×/month,Beauty,Tira,8–10,"₹2,500–₹4,999",3750,"<₹1,000",750,1× every 1–3m,1,0.2,Size / fit,Yes,1,5,<10%,5
+R037,True,18–24,3–5×/month,Fashion,Myntra,5–7,"₹1,000–₹2,499",1750,"₹5,000–₹7,499",6250,>1×/month,2,0.4,Delivery issue,Yes,1,5,25–49%,37
+R037,True,18–24,3–5×/month,Beauty,Nykaa,8–10,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,>1×/month,0,0.0,No return in last 5 orders,Yes,1,5,50–74%,62
+R038,True,25–34,6–10×/month,Fashion,Nykaa Fashion,2,"₹2,500–₹4,999",3750,"₹1,000–₹2,499",1750,>1×/month,0,0.0,No return in last 5 orders,Yes,1,2,25–49%,37
+R038,True,25–34,6–10×/month,Beauty,Nykaa,3–4,"₹2,500–₹4,999",3750,"₹5,000–₹7,499",6250,>1×/month,0,0.0,No return in last 5 orders,Yes,1,4,75–99%,87
+R039,True,45+,3–5×/month,Fashion,AJIO,3–4,"₹5,000–₹9,999",7500,"₹5,000–₹7,499",6250,<1× every 6m,0,0.0,No return in last 5 orders,Yes,1,5,<10%,5
+R039,True,45+,3–5×/month,Beauty,Purplle,5–7,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,1× every 3–6m,1,0.2,Changed my mind,Yes,1,4,75–99%,87
+R040,True,25–34,1–2×/month,Fashion,Nykaa Fashion,5–7,"₹1,000–₹2,499",1750,"₹2,500–₹4,999",3750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,3,10–24%,17
+R040,True,25–34,1–2×/month,Beauty,Nykaa,>10,"₹10,000–₹19,999",15000,"₹5,000–₹7,499",6250,>1×/month,0,0.0,No return in last 5 orders,Yes,1,4,25–49%,37
+R041,True,18–24,3–5×/month,Fashion,Meesho,5–7,"₹5,000–₹9,999",7500,"₹2,500–₹4,999",3750,1× every 3–6m,1,0.2,Product quality,Yes,1,3,50–74%,62
+R041,True,18–24,3–5×/month,Beauty,Nykaa,1,"₹1,000–₹2,499",1750,"₹2,500–₹4,999",3750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,1,<10%,5
+R042,True,45+,1–2×/month,Fashion,AJIO,>10,"<₹1,000",500,"₹5,000–₹7,499",6250,1× every 1–3m,2,0.4,Product looked different from images,Yes,1,4,<10%,5
+R042,True,45+,1–2×/month,Beauty,Nykaa,3–4,"₹10,000–₹19,999",15000,"₹1,000–₹2,499",1750,>1×/month,0,0.0,No return in last 5 orders,Yes,1,4,50–74%,62
+R043,True,25–34,1–2×/month,Fashion,Myntra,5–7,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,1× every 1–3m,2,0.4,Size / fit,Yes,1,4,<10%,5
+R043,True,25–34,1–2×/month,Beauty,Nykaa,5–7,"₹10,000–₹19,999",15000,"<₹1,000",750,1× every 1–3m,1,0.2,Colour differed from expectation,No,0,5,25–49%,37
+R044,True,25–34,6–10×/month,Fashion,Myntra,8–10,"<₹1,000",500,"₹1,000–₹2,499",1750,Only once,2,0.4,Product quality,Yes,1,3,10–24%,17
+R044,True,25–34,6–10×/month,Beauty,Nykaa,3–4,"₹10,000–₹19,999",15000,"₹2,500–₹4,999",3750,<1× every 6m,1,0.2,Size / fit,Yes,1,2,25–49%,37
+R045,True,25–34,3–5×/month,Fashion,Myntra,5–7,"₹10,000–₹19,999",15000,"₹2,500–₹4,999",3750,Only once,3,0.6,Changed my mind,Yes,1,3,50–74%,62
+R045,True,25–34,3–5×/month,Beauty,Tira,5–7,"₹5,000–₹9,999",7500,"₹2,500–₹4,999",3750,1× every 1–3m,2,0.4,Product quality,Yes,1,4,50–74%,62
+R046,True,45+,3–5×/month,Fashion,Myntra,5–7,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,1× every 1–3m,5,1.0,Colour differed from expectation,Yes,1,4,25–49%,37
+R046,True,45+,3–5×/month,Beauty,Nykaa,3–4,"₹2,500–₹4,999",3750,"₹5,000–₹7,499",6250,>1×/month,0,0.0,No return in last 5 orders,Yes,1,4,50–74%,62
+R047,True,18–24,3–5×/month,Fashion,Amazon,>10,"₹5,000–₹9,999",7500,"₹2,500–₹4,999",3750,>1×/month,3,0.6,Size / fit,Yes,1,4,10–24%,17
+R047,True,18–24,3–5×/month,Beauty,Nykaa,8–10,"₹2,500–₹4,999",3750,"<₹1,000",750,1× every 3–6m,0,0.0,No return in last 5 orders,Yes,1,5,25–49%,37
+R048,True,18–24,>10×/month,Fashion,Myntra,2,"₹1,000–₹2,499",1750,"₹7,500–₹9,999",8750,1× every 1–3m,1,0.2,Colour differed from expectation,Yes,1,3,50–74%,62
+R048,True,18–24,>10×/month,Beauty,Nykaa,3–4,"<₹1,000",500,"₹2,500–₹4,999",3750,>1×/month,0,0.0,No return in last 5 orders,Yes,1,5,50–74%,62
+R049,True,25–34,1–2×/month,Fashion,AJIO,3–4,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,1× every 3–6m,0,0.0,No return in last 5 orders,No,0,2,10–24%,17
+R049,True,25–34,1–2×/month,Beauty,Nykaa,3–4,"<₹1,000",500,"₹1,000–₹2,499",1750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,5,50–74%,62
+R050,True,25–34,>10×/month,Fashion,Myntra,2,"₹1,000–₹2,499",1750,"₹2,500–₹4,999",3750,>1×/month,2,0.4,Size / fit,Yes,1,5,25–49%,37
+R050,True,25–34,>10×/month,Beauty,Purplle,1,"<₹1,000",500,"₹2,500–₹4,999",3750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,5,75–99%,87
+R051,True,45+,3–5×/month,Fashion,Myntra,2,"₹1,000–₹2,499",1750,"₹5,000–₹7,499",6250,<1× every 6m,0,0.0,No return in last 5 orders,No,0,4,75–99%,87
+R051,True,45+,3–5×/month,Beauty,Nykaa,8–10,"₹10,000–₹19,999",15000,"₹5,000–₹7,499",6250,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,3,25–49%,37
+R052,True,18–24,3–5×/month,Fashion,AJIO,5–7,"₹2,500–₹4,999",3750,"<₹1,000",750,Only once,1,0.2,Size / fit,Yes,1,4,<10%,5
+R052,True,18–24,3–5×/month,Beauty,Nykaa,2,"₹5,000–₹9,999",7500,"₹2,500–₹4,999",3750,1× every 3–6m,0,0.0,No return in last 5 orders,No,0,4,75–99%,87
+R053,True,18–24,3–5×/month,Fashion,Myntra,3–4,"₹1,000–₹2,499",1750,"₹7,500–₹9,999",8750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,5,25–49%,37
+R053,True,18–24,3–5×/month,Beauty,Nykaa,2,"₹2,500–₹4,999",3750,"<₹1,000",750,>1×/month,0,0.0,No return in last 5 orders,Yes,1,2,100%,100
+R054,True,25–34,3–5×/month,Fashion,Other,3–4,"₹5,000–₹9,999",7500,"₹2,500–₹4,999",3750,>1×/month,2,0.4,Product quality,Yes,1,3,50–74%,62
+R054,True,25–34,3–5×/month,Beauty,Nykaa,2,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,>1×/month,1,0.2,Colour differed from expectation,Yes,1,5,<10%,5
+R055,True,18–24,3–5×/month,Fashion,Myntra,3–4,"<₹1,000",500,"₹1,000–₹2,499",1750,1× every 1–3m,2,0.4,Size / fit,Yes,1,4,50–74%,62
+R055,True,18–24,3–5×/month,Beauty,Myntra,8–10,"₹1,000–₹2,499",1750,"<₹1,000",750,1× every 1–3m,1,0.2,Damaged / defective,No,0,5,75–99%,87
+R056,True,25–34,1–2×/month,Fashion,Amazon,5–7,"₹5,000–₹9,999",7500,"₹1,000–₹2,499",1750,1× every 1–3m,1,0.2,Colour differed from expectation,Yes,1,2,25–49%,37
+R056,True,25–34,1–2×/month,Beauty,Nykaa,8–10,"₹1,000–₹2,499",1750,"₹2,500–₹4,999",3750,1× every 3–6m,2,0.4,Size / fit,Yes,1,5,25–49%,37
+R057,True,25–34,3–5×/month,Fashion,AJIO,5–7,"₹2,500–₹4,999",3750,"₹1,000–₹2,499",1750,>1×/month,3,0.6,Size / fit,Yes,1,4,50–74%,62
+R057,True,25–34,3–5×/month,Beauty,Nykaa,5–7,"₹1,000–₹2,499",1750,"<₹1,000",750,1× every 1–3m,3,0.6,Colour differed from expectation,Yes,1,4,10–24%,17
+R058,True,18–24,3–5×/month,Fashion,Myntra,3–4,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,<1× every 6m,1,0.2,Size / fit,Yes,1,5,<10%,5
+R058,True,18–24,3–5×/month,Beauty,Nykaa,3–4,"<₹1,000",500,"<₹1,000",750,>1×/month,0,0.0,No return in last 5 orders,Yes,1,5,50–74%,62
+R059,True,18–24,6–10×/month,Fashion,AJIO,3–4,"₹1,000–₹2,499",1750,"₹2,500–₹4,999",3750,1× every 3–6m,2,0.4,Product quality,Yes,1,1,100%,100
+R059,True,18–24,6–10×/month,Beauty,Nykaa,>10,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,>1×/month,0,0.0,No return in last 5 orders,Yes,1,3,50–74%,62
+R060,True,45+,3–5×/month,Fashion,Amazon,5–7,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,1× every 1–3m,2,0.4,Colour differed from expectation,Yes,1,5,25–49%,37
+R060,True,45+,3–5×/month,Beauty,Nykaa,5–7,"₹5,000–₹9,999",7500,"<₹1,000",750,1× every 1–3m,0,0.0,No return in last 5 orders,No,0,5,<10%,5
+R061,True,25–34,6–10×/month,Fashion,Meesho,5–7,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,1× every 3–6m,1,0.2,Damaged / defective,No,0,4,10–24%,17
+R061,True,25–34,6–10×/month,Beauty,Nykaa,5–7,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,1× every 1–3m,1,0.2,Damaged / defective,Yes,1,5,100%,100
+R062,True,35–44,6–10×/month,Fashion,Myntra,3–4,"₹1,000–₹2,499",1750,"₹5,000–₹7,499",6250,1× every 1–3m,2,0.4,Size / fit,No,0,5,25–49%,37
+R062,True,35–44,6–10×/month,Beauty,Nykaa,2,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,<1× every 6m,0,0.0,No return in last 5 orders,Yes,1,5,75–99%,87
+R063,True,18–24,6–10×/month,Fashion,Nykaa Fashion,2,"₹2,500–₹4,999",3750,"₹10,000+",12500,<1× every 6m,0,0.0,No return in last 5 orders,No,0,5,25–49%,37
+R063,True,18–24,6–10×/month,Beauty,Nykaa,8–10,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,>1×/month,1,0.2,Changed my mind,Yes,1,5,50–74%,62
+R064,True,35–44,3–5×/month,Fashion,AJIO,1,"₹5,000–₹9,999",7500,"₹2,500–₹4,999",3750,1× every 1–3m,2,0.4,Material/fabric differed,Yes,1,4,25–49%,37
+R064,True,35–44,3–5×/month,Beauty,Purplle,3–4,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,<1× every 6m,2,0.4,Product quality,Yes,1,4,<10%,5
+R065,True,25–34,1–2×/month,Fashion,Myntra,2,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,>1×/month,0,0.0,No return in last 5 orders,Yes,1,5,25–49%,37
+R065,True,25–34,1–2×/month,Beauty,Nykaa,3–4,"<₹1,000",500,"₹2,500–₹4,999",3750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,4,75–99%,87
+R066,True,25–34,>10×/month,Fashion,Nykaa Fashion,3–4,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,<1× every 6m,3,0.6,Size / fit,No,0,5,75–99%,87
+R066,True,25–34,>10×/month,Beauty,Amazon,5–7,"₹5,000–₹9,999",7500,"₹1,000–₹2,499",1750,1× every 1–3m,1,0.2,Found a better price elsewhere,Yes,1,5,10–24%,17
+R067,True,25–34,3–5×/month,Fashion,Flipkart,3–4,"₹5,000–₹9,999",7500,"<₹1,000",750,1× every 1–3m,0,0.0,No return in last 5 orders,No,0,4,75–99%,87
+R067,True,25–34,3–5×/month,Beauty,Nykaa,3–4,"₹2,500–₹4,999",3750,"₹1,000–₹2,499",1750,>1×/month,0,0.0,No return in last 5 orders,Yes,1,5,<10%,5
+R068,True,18–24,1–2×/month,Fashion,Myntra,>10,"₹10,000–₹19,999",15000,"₹5,000–₹7,499",6250,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,4,10–24%,17
+R068,True,18–24,1–2×/month,Beauty,Nykaa,8–10,"₹5,000–₹9,999",7500,"₹7,500–₹9,999",8750,>1×/month,2,0.4,Damaged / defective,No,0,3,25–49%,37
+R069,True,18–24,1–2×/month,Fashion,AJIO,2,"₹1,000–₹2,499",1750,"<₹1,000",750,1× every 1–3m,1,0.2,Size / fit,Yes,1,4,25–49%,37
+R069,True,18–24,1–2×/month,Beauty,Nykaa,1,"₹10,000–₹19,999",15000,"₹1,000–₹2,499",1750,1× every 1–3m,1,0.2,Changed my mind,Yes,1,4,50–74%,62
+R070,True,25–34,1–2×/month,Fashion,Amazon,5–7,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,>1×/month,0,0.0,No return in last 5 orders,Yes,1,4,10–24%,17
+R070,True,25–34,1–2×/month,Beauty,Nykaa,5–7,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,>1×/month,0,0.0,No return in last 5 orders,Yes,1,5,<10%,5
+R071,True,18–24,6–10×/month,Fashion,Flipkart,2,"₹2,500–₹4,999",3750,"₹5,000–₹7,499",6250,1× every 3–6m,2,0.4,Changed my mind,No,0,5,<10%,5
+R071,True,18–24,6–10×/month,Beauty,Flipkart,3–4,"₹2,500–₹4,999",3750,"₹1,000–₹2,499",1750,1× every 1–3m,1,0.2,Size / fit,Yes,1,5,100%,100
+R072,True,18–24,3–5×/month,Fashion,AJIO,3–4,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,5,<10%,5
+R072,True,18–24,3–5×/month,Beauty,Nykaa,5–7,"₹2,500–₹4,999",3750,"<₹1,000",750,>1×/month,3,0.6,Found a better price elsewhere,Yes,1,4,25–49%,37
+R073,True,18–24,1–2×/month,Fashion,Myntra,3–4,"₹5,000–₹9,999",7500,"<₹1,000",750,Only once,3,0.6,Colour differed from expectation,No,0,5,10–24%,17
+R073,True,18–24,1–2×/month,Beauty,Nykaa,3–4,"<₹1,000",500,"<₹1,000",750,1× every 1–3m,4,0.8,Size / fit,Yes,1,3,<10%,5
+R074,True,18–24,>10×/month,Fashion,Myntra,1,"₹1,000–₹2,499",1750,"₹5,000–₹7,499",6250,1× every 3–6m,2,0.4,Size / fit,No,0,2,100%,100
+R074,True,18–24,>10×/month,Beauty,Nykaa,8–10,"₹2,500–₹4,999",3750,"₹1,000–₹2,499",1750,1× every 1–3m,1,0.2,Colour differed from expectation,Yes,1,3,10–24%,17
+R075,True,25–34,6–10×/month,Fashion,AJIO,1,"₹1,000–₹2,499",1750,"₹2,500–₹4,999",3750,1× every 3–6m,2,0.4,Size / fit,No,0,5,25–49%,37
+R075,True,25–34,6–10×/month,Beauty,Nykaa,8–10,"₹10,000–₹19,999",15000,"₹2,500–₹4,999",3750,1× every 1–3m,0,0.0,No return in last 5 orders,No,0,5,50–74%,62
+R076,True,25–34,6–10×/month,Fashion,AJIO,5–7,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,1× every 1–3m,1,0.2,Colour differed from expectation,No,0,2,10–24%,17
+R076,True,25–34,6–10×/month,Beauty,Flipkart,5–7,"<₹1,000",500,"<₹1,000",750,<1× every 6m,1,0.2,Material/fabric differed,Yes,1,5,50–74%,62
+R077,True,25–34,6–10×/month,Fashion,Myntra,5–7,"<₹1,000",500,"₹1,000–₹2,499",1750,>1×/month,0,0.0,No return in last 5 orders,Yes,1,3,10–24%,17
+R077,True,25–34,6–10×/month,Beauty,Nykaa,2,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,>1×/month,1,0.2,Product quality,Yes,1,3,<10%,5
+R078,True,25–34,>10×/month,Fashion,Myntra,2,"₹1,000–₹2,499",1750,"₹5,000–₹7,499",6250,>1×/month,2,0.4,Changed my mind,Yes,1,3,10–24%,17
+R078,True,25–34,>10×/month,Beauty,Nykaa,5–7,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,>1×/month,0,0.0,No return in last 5 orders,Yes,1,3,10–24%,17
+R079,True,45+,1–2×/month,Fashion,Nykaa Fashion,3–4,"₹2,500–₹4,999",3750,"₹1,000–₹2,499",1750,>1×/month,0,0.0,No return in last 5 orders,No,0,3,25–49%,37
+R079,True,45+,1–2×/month,Beauty,Nykaa,>10,"₹2,500–₹4,999",3750,"₹1,000–₹2,499",1750,>1×/month,0,0.0,No return in last 5 orders,No,0,5,25–49%,37
+R080,True,18–24,3–5×/month,Fashion,Myntra,5–7,"₹1,000–₹2,499",1750,"₹7,500–₹9,999",8750,>1×/month,2,0.4,Product quality,No,0,5,25–49%,37
+R080,True,18–24,3–5×/month,Beauty,Amazon,3–4,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,1× every 1–3m,1,0.2,Changed my mind,Yes,1,4,50–74%,62
+R081,True,25–34,1–2×/month,Fashion,Amazon,1,"₹2,500–₹4,999",3750,"₹1,000–₹2,499",1750,1× every 3–6m,2,0.4,Product quality,Yes,1,4,50–74%,62
+R081,True,25–34,1–2×/month,Beauty,Nykaa,3–4,"₹5,000–₹9,999",7500,"₹10,000+",12500,1× every 1–3m,1,0.2,Product quality,Yes,1,4,50–74%,62
+R082,True,25–34,1–2×/month,Fashion,Myntra,8–10,"₹2,500–₹4,999",3750,"₹1,000–₹2,499",1750,>1×/month,2,0.4,Size / fit,No,0,3,25–49%,37
+R082,True,25–34,1–2×/month,Beauty,Nykaa,5–7,"₹20,000+",25000,"₹1,000–₹2,499",1750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,3,10–24%,17
+R083,True,18–24,1–2×/month,Fashion,AJIO,2,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,<1× every 6m,1,0.2,Material/fabric differed,Yes,1,4,10–24%,17
+R083,True,18–24,1–2×/month,Beauty,Purplle,5–7,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,>1×/month,3,0.6,Found a better price elsewhere,Yes,1,3,10–24%,17
+R084,True,25–34,3–5×/month,Fashion,AJIO,>10,"<₹1,000",500,"₹5,000–₹7,499",6250,>1×/month,1,0.2,Product quality,Yes,1,2,50–74%,62
+R084,True,25–34,3–5×/month,Beauty,Nykaa,5–7,"₹1,000–₹2,499",1750,"₹7,500–₹9,999",8750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,4,25–49%,37
+R085,True,25–34,3–5×/month,Fashion,Amazon,3–4,"₹1,000–₹2,499",1750,"₹2,500–₹4,999",3750,>1×/month,0,0.0,No return in last 5 orders,No,0,5,10–24%,17
+R085,True,25–34,3–5×/month,Beauty,Nykaa,5–7,"₹1,000–₹2,499",1750,"₹2,500–₹4,999",3750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,5,75–99%,87
+R086,True,18–24,3–5×/month,Fashion,Myntra,5–7,"₹1,000–₹2,499",1750,"₹10,000+",12500,1× every 1–3m,2,0.4,Delivery issue,Yes,1,3,10–24%,17
+R086,True,18–24,3–5×/month,Beauty,Tira,8–10,"₹2,500–₹4,999",3750,"₹1,000–₹2,499",1750,1× every 1–3m,1,0.2,Changed my mind,Yes,1,5,<10%,5
+R087,True,18–24,3–5×/month,Fashion,Myntra,3–4,"₹10,000–₹19,999",15000,"<₹1,000",750,1× every 1–3m,3,0.6,Product looked different from images,Yes,1,5,10–24%,17
+R087,True,18–24,3–5×/month,Beauty,Purplle,5–7,"₹1,000–₹2,499",1750,"₹2,500–₹4,999",3750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,4,<10%,5
+R088,True,25–34,3–5×/month,Fashion,Myntra,5–7,"<₹1,000",500,"₹1,000–₹2,499",1750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,5,10–24%,17
+R088,True,25–34,3–5×/month,Beauty,Myntra,1,"₹20,000+",25000,"₹2,500–₹4,999",3750,>1×/month,1,0.2,Material/fabric differed,Yes,1,4,50–74%,62
+R089,True,18–24,3–5×/month,Fashion,Amazon,2,"<₹1,000",500,"₹2,500–₹4,999",3750,1× every 3–6m,2,0.4,Size / fit,Yes,1,5,50–74%,62
+R089,True,18–24,3–5×/month,Beauty,Nykaa,3–4,"<₹1,000",500,"₹2,500–₹4,999",3750,1× every 3–6m,0,0.0,No return in last 5 orders,Yes,1,4,50–74%,62
+R090,True,25–34,6–10×/month,Fashion,AJIO,5–7,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,>1×/month,0,0.0,No return in last 5 orders,Yes,1,5,75–99%,87
+R090,True,25–34,6–10×/month,Beauty,Nykaa,3–4,"₹5,000–₹9,999",7500,"₹2,500–₹4,999",3750,>1×/month,2,0.4,Material/fabric differed,Yes,1,4,<10%,5
+R091,True,18–24,3–5×/month,Fashion,Nykaa Fashion,2,"₹5,000–₹9,999",7500,"₹2,500–₹4,999",3750,<1× every 6m,0,0.0,No return in last 5 orders,Yes,1,3,<10%,5
+R091,True,18–24,3–5×/month,Beauty,Nykaa,5–7,"₹2,500–₹4,999",3750,"<₹1,000",750,1× every 1–3m,2,0.4,Other,Yes,1,4,10–24%,17
+R092,True,25–34,3–5×/month,Fashion,Nykaa Fashion,3–4,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,1× every 1–3m,0,0.0,No return in last 5 orders,Yes,1,4,10–24%,17
+R092,True,25–34,3–5×/month,Beauty,Nykaa,5–7,"<₹1,000",500,"₹2,500–₹4,999",3750,1× every 1–3m,1,0.2,Size / fit,Yes,1,5,50–74%,62
+R093,True,25–34,6–10×/month,Fashion,Myntra,2,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,Only once,2,0.4,Colour differed from expectation,Yes,1,5,50–74%,62
+R093,True,25–34,6–10×/month,Beauty,Nykaa,3–4,"₹2,500–₹4,999",3750,"₹7,500–₹9,999",8750,>1×/month,2,0.4,Product looked different from images,Yes,1,4,10–24%,17
+R094,True,18–24,3–5×/month,Fashion,Myntra,3–4,"₹1,000–₹2,499",1750,"₹5,000–₹7,499",6250,1× every 1–3m,4,0.8,Size / fit,Yes,1,5,<10%,5
+R094,True,18–24,3–5×/month,Beauty,Amazon,2,"₹2,500–₹4,999",3750,"₹1,000–₹2,499",1750,Only once,2,0.4,Colour differed from expectation,No,0,4,50–74%,62
+R095,True,18–24,3–5×/month,Fashion,Amazon,3–4,"₹5,000–₹9,999",7500,"<₹1,000",750,>1×/month,1,0.2,Size / fit,Yes,1,3,75–99%,87
+R095,True,18–24,3–5×/month,Beauty,Amazon,5–7,"₹1,000–₹2,499",1750,"₹1,000–₹2,499",1750,>1×/month,1,0.2,Product quality,Yes,1,5,<10%,5
+R096,True,18–24,3–5×/month,Fashion,Myntra,1,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,<1× every 6m,3,0.6,Size / fit,No,0,5,50–74%,62
+R096,True,18–24,3–5×/month,Beauty,Nykaa,3–4,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,1× every 3–6m,0,0.0,No return in last 5 orders,Yes,1,4,75–99%,87
+R097,True,18–24,3–5×/month,Fashion,AJIO,2,"₹1,000–₹2,499",1750,"₹2,500–₹4,999",3750,<1× every 6m,2,0.4,Damaged / defective,Yes,1,2,10–24%,17
+R097,True,18–24,3–5×/month,Beauty,Flipkart,3–4,"₹5,000–₹9,999",7500,"₹1,000–₹2,499",1750,1× every 3–6m,0,0.0,No return in last 5 orders,Yes,1,5,<10%,5
+R098,True,25–34,1–2×/month,Fashion,Meesho,1,"₹2,500–₹4,999",3750,"<₹1,000",750,Only once,0,0.0,No return in last 5 orders,Yes,1,5,50–74%,62
+R098,True,25–34,1–2×/month,Beauty,Nykaa,8–10,"₹10,000–₹19,999",15000,"₹10,000+",12500,>1×/month,0,0.0,No return in last 5 orders,Yes,1,3,50–74%,62
+R099,True,18–24,1–2×/month,Fashion,Myntra,2,"₹2,500–₹4,999",3750,"₹1,000–₹2,499",1750,1× every 3–6m,3,0.6,Size / fit,Yes,1,3,50–74%,62
+R099,True,18–24,1–2×/month,Beauty,Purplle,3–4,"<₹1,000",500,"<₹1,000",750,1× every 3–6m,0,0.0,No return in last 5 orders,Yes,1,4,50–74%,62
+R100,True,18–24,1–2×/month,Fashion,Other,8–10,"<₹1,000",500,"₹1,000–₹2,499",1750,Only once,0,0.0,No return in last 5 orders,Yes,1,5,50–74%,62
+R100,True,18–24,1–2×/month,Beauty,Nykaa,8–10,"₹2,500–₹4,999",3750,"₹2,500–₹4,999",3750,>1×/month,4,0.8,Size / fit,Yes,1,5,50–74%,62
