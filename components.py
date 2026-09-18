@@ -168,7 +168,11 @@ def kpi_card(label, fashion_val, beauty_val, formatter=fmt_pct,
             pass
 
     card_children = [
-        html.Div(label, className='kpi-card-label', title=tooltip or ''),
+        html.Div(
+            [label, html.Span(" ⓘ", style={'fontSize': '0.9em', 'opacity': '0.6', 'cursor': 'help'})] if tooltip else label,
+            className='kpi-card-label',
+            title=tooltip or ''
+        ),
         html.Div([
             html.Div([
                 html.Div('Fashion', className='kpi-segment-label fashion'),

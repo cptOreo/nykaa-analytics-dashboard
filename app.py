@@ -4,7 +4,7 @@ A multi-page Dash application analysing the Fashion vs Beauty profitability gap.
 """
 
 import dash
-from dash import dcc, html, Input, Output, callback
+from dash import dcc, html, Input, Output, State, callback
 import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
@@ -177,15 +177,15 @@ def build_page1(year):
 
     hero_kpis = html.Div(className='kpi-row', children=[
         kpi_card('EBITDA MARGIN', _safe(fk.get('EBITDA Margin %')), _safe(bk.get('EBITDA Margin %')),
-                 prev_gap=_gap_prev('EBITDA Margin %'), higher_is_better=True),
+                 prev_gap=_gap_prev('EBITDA Margin %'), higher_is_better=True, tooltip='EBITDA ÷ Net Sales Value (NSV)'),
         kpi_card('CONTRIBUTION MARGIN', _safe(fk.get('Contribution Margin %')), _safe(bk.get('Contribution Margin %')),
-                 prev_gap=_gap_prev('Contribution Margin %'), higher_is_better=True),
+                 prev_gap=_gap_prev('Contribution Margin %'), higher_is_better=True, tooltip='Gross Profit minus Fulfilment and Marketing, divided by NSV'),
         kpi_card('MARKETING + S&D %', _safe(fk.get('Marketing + S&D %')), _safe(bk.get('Marketing + S&D %')),
                  prev_gap=_gap_prev('Marketing + S&D %'), higher_is_better=False),
         kpi_card('NSV ÷ GMV (REALISATION)', _safe(fk.get('Realisation %')), _safe(bk.get('Realisation %')),
-                 prev_gap=_gap_prev('Realisation %'), higher_is_better=True),
+                 prev_gap=_gap_prev('Realisation %'), higher_is_better=True, tooltip='Net Sales Value ÷ Gross Merchandise Value. Measures value lost to cancellations, returns, and discounts.'),
         kpi_card('LOGISTICS / ORDER', _safe(fk.get('Logistics Cost per Order')), _safe(bk.get('Logistics Cost per Order')),
-                 formatter=fmt_inr, prev_gap=_gap_prev('Logistics Cost per Order'), higher_is_better=False),
+                 formatter=fmt_inr, prev_gap=_gap_prev('Logistics Cost per Order'), higher_is_better=False, tooltip='Fulfilment Expense ÷ Total Orders'),
         kpi_card('ORDERS / CUSTOMER', _safe(fk.get('Orders per Customer')), _safe(bk.get('Orders per Customer')),
                  formatter=_fmt_ratio, prev_gap=_gap_prev('Orders per Customer'), higher_is_better=True),
         kpi_card('BREAK-EVEN VOLUME', _safe(fk.get('Break-even Volume'), 0) / 1e6 if _safe(fk.get('Break-even Volume')) else None,
@@ -934,10 +934,9 @@ def build_page8(year):
 
     kpis = html.Div(className='kpi-row', children=[
         kpi_card('CONTRIBUTION / ORDER', f_cpo, b_cpo, formatter=fmt_inr, higher_is_better=True),
-        kpi_card('BREAK-EVEN VOLUME',
-                 f_bev / 1e6 if f_bev else None, b_bev / 1e6 if b_bev else None,
+        kpi_card('BREAK-EVEN VOLUME', f_bev / 1e6 if f_bev else None, b_bev / 1e6 if b_bev else None,
                  formatter=lambda v: f"{v:.1f}M" if v else '-', higher_is_better=False,
-                 show_gap=False),
+                 show_gap=False, tooltip='Fixed & Other Expenses ÷ Contribution Profit per Order'),
         kpi_card('ACTUAL ORDERS',
                  f_orders / 1e6, b_orders / 1e6,
                  formatter=lambda v: f"{v:.1f}M" if v else '-', higher_is_better=True,
@@ -1041,6 +1040,41 @@ def update_active_links(pathname):
         else:
             classes.append('nav-link')
     return classes
+
+
+import urllib.parse
+
+@callback(
+    Output('url', 'search'),
+    Input('year-filter', 'value'),
+    State('url', 'search')
+)
+def update_url_search(year, current_search):
+    if not year:
+        return dash.no_update
+        
+    current_params = urllib.parse.parse_qs(current_search.lstrip('?')) if current_search else {}
+    if current_params.get('year', [None])[0] == year:
+        return dash.no_update
+        
+    current_params['year'] = [year]
+    return '?' + urllib.parse.urlencode(current_params, doseq=True)
+
+@callback(
+    Output('year-filter', 'value'),
+    Input('url', 'search'),
+    State('year-filter', 'value')
+)
+def load_state_from_url(search, current_year):
+    if not search:
+        return dash.no_update
+    params = urllib.parse.parse_qs(search.lstrip('?'))
+    url_year = params.get('year', [None])[0]
+    
+    if url_year and url_year != current_year and url_year in ['FY22','FY23','FY24','FY25','FY26']:
+        return url_year
+        
+    return dash.no_update
 
 @callback(Output('page-content', 'children'),
           Input('url', 'pathname'),
