@@ -87,12 +87,12 @@ def create_100_rupee_flow(f_nsv, b_nsv, f_gp, b_gp, f_log, b_log, f_mkt, b_mkt, 
         ])
 
     return html.Div(style={'margin': '40px 0'}, children=[
-        _step('Gross Profit', 'what remains after product cost', f_gp, b_gp),
-        _step('Fulfilment', 'the cost to get the order through', f_log, b_log),
-        _step('Commercial Spend', 'the cost of selling it', f_mkt, b_mkt),
-        _step('Contribution', 'what remains before other expenses', f_cm, b_cm),
-        _step('Other Expenses', 'everything still sitting above EBITDA', f_oth, b_oth),
-        _step('EBITDA', 'what survives', f_ebitda, b_ebitda),
+        _step('Gross Profit', 'Capital after product cost', f_gp, b_gp),
+        _step('Fulfilment', 'Cost of processing the order', f_log, b_log),
+        _step('Commercial Spend', 'Cost of selling', f_mkt, b_mkt),
+        _step('Contribution', 'Capital before other expenses', f_cm, b_cm),
+        _step('Other Expenses', 'Overhead costs above EBITDA', f_oth, b_oth),
+        _step('EBITDA', 'Capital surviving', f_ebitda, b_ebitda),
     ])
 
 def create_customer_journey(metrics):

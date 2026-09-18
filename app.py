@@ -1,5 +1,5 @@
 """
-Nykaa Editorial Dashboard - app.py
+Nykaa Editorial Dashboard - app.py (Stop Slop Edition)
 """
 from dash import Dash, html, dcc, callback, Input, Output, State
 import dash
@@ -46,7 +46,7 @@ def build_page_gap(year):
     
     return html.Div(className='page-wrapper', children=[
         c.methodology_badge('01', txt.BADGE_FINANCIAL),
-        html.Div(className='editorial-statement', children=["FASHION IS GROWING.", html.Br(), "THE ECONOMICS ARE DIFFERENT."]),
+        html.Div(className='editorial-statement', children=["FASHION SCALES.", html.Br(), "MARGINS LAG BEAUTY."]),
         html.Div(txt.p1_gap_substatement(), className='editorial-substatement'),
         html.Div(className='flex-row', children=[
             html.Div([html.Div("FASHION EBITDA", className='giant-label'), html.Div(f"{f_eb:.1f}%", className='giant-number fashion')]),
@@ -57,7 +57,7 @@ def build_page_gap(year):
         
         html.Div(className='kpi-strip', children=[
             c.kpi_card('Realisation', _safe(fk.get('Realisation %')), _safe(bk.get('Realisation %')), 
-                       subtitle="How much GMV becomes NSV", tooltip=txt.TOOLTIPS['realisation']),
+                       subtitle="GMV converted into NSV", tooltip=txt.TOOLTIPS['realisation']),
             c.kpi_card('Contribution margin', _safe(fk.get('Contribution Margin %')), _safe(bk.get('Contribution Margin %')), 
                        subtitle="₹ retained per ₹100 of NSV", tooltip=txt.TOOLTIPS['cm']),
             c.kpi_card('Orders per customer', _safe(fk.get('Orders per Customer')), _safe(bk.get('Orders per Customer')), 
@@ -70,8 +70,8 @@ def build_page_money(year):
     fk, bk = _kpis(year, 'Fashion'), _kpis(year, 'Beauty')
     return html.Div(className='page-wrapper', children=[
         c.methodology_badge('02', txt.BADGE_DERIVED),
-        html.H1("WHERE DOES ₹100 OF NSV GO?"),
-        html.P("Start with ₹100 of net sales value. Follow what remains after gross profit, fulfilment and commercial spend.", className='editorial-substatement'),
+        html.H1("THE ₹100 NSV FLOW"),
+        html.P("Track the capital remaining after gross profit, fulfilment, and commercial spend.", className='editorial-substatement'),
         
         c.create_100_rupee_flow(
             f_nsv=_safe(fk.get('NSV')), b_nsv=_safe(bk.get('NSV')),
@@ -100,7 +100,7 @@ def build_page_growth(year):
     fk = _kpis(year, 'Fashion')
     return html.Div(className='page-wrapper', children=[
         c.methodology_badge('03', txt.BADGE_DERIVED),
-        html.H1("GROWTH IS REAL. THE QUESTION IS WHAT IT IS WORTH."),
+        html.H1("REVENUE SCALES ALONGSIDE COSTS"),
         html.P(txt.p3_dynamic_growth(year, _safe(fk.get('Contribution Margin %')), _safe(fk.get('Marketing + S&D %'))), className='editorial-substatement'),
         
         html.Div(className='flex-row', children=[
@@ -119,7 +119,7 @@ def build_page_growth(year):
                 )))
             ])
         ]),
-        c.annotation_box("Fashion shows scaling contribution, but marketing & selling costs scale aggressively alongside it.", 'fashion')
+        c.annotation_box("Marketing and selling costs scale alongside Fashion's contribution margin.", 'fashion')
     ])
 
 # ─── 04 CUSTOMER ───
@@ -140,8 +140,8 @@ def build_page_customer(df, year):
 
     return html.Div(className='page-wrapper', children=[
         c.synthetic_data_banner(),
-        html.H1("THE CUSTOMER STORY IS PART OF THE MARGIN STORY."),
-        html.P("Frequency changes the economics. A customer who buys once has a very different value to the business from one who comes back repeatedly.", className='editorial-substatement'),
+        html.H1("CUSTOMER FREQUENCY ALTERS MARGINS"),
+        html.P("Frequency dictates economics. Single-purchase customers carry a different financial profile than repeat buyers.", className='editorial-substatement'),
         c.create_customer_journey(metrics),
         c.annotation_box(txt.p4_dynamic_frequency(f_opc, b_opc), 'fashion'),
         
@@ -169,10 +169,10 @@ def build_page_returns(df):
         
     return html.Div(className='page-wrapper', children=[
         c.synthetic_data_banner(),
-        html.H1("THE ORDER ISN'T ALWAYS THE END OF THE JOURNEY."),
-        html.P("In fashion, the economics of an order can continue after checkout.", className='editorial-substatement'),
+        html.H1("RETURNS EXTEND THE ORDER LIFECYCLE"),
+        html.P("Order economics continue post-checkout for the Fashion segment.", className='editorial-substatement'),
         html.Div(className='chart-section', children=[html.H3("FASHION RETURN REASONS"), html.Div(children=rows, style={'marginTop': '24px'})]),
-        c.annotation_box("Fashion's higher return rate coincides with a wider cost burden. Over 40% of returns are driven purely by size and fit.", 'fashion')
+        c.annotation_box("Fashion's higher return rate correlates with a wider cost burden. Size and fit drive 40% of returns.", 'fashion')
     ])
 
 # ─── 06 ACQUISITION ───
@@ -182,15 +182,15 @@ def build_page_acquisition(year):
     
     return html.Div(className='page-wrapper', children=[
         c.methodology_badge('06', txt.BADGE_DERIVED),
-        html.H1("GETTING THE FIRST ORDER IS ONLY HALF THE JOB."),
-        html.P("The acquisition story matters because customer economics depend on what happens after the first purchase.", className='editorial-substatement'),
+        html.H1("ACQUISITION SETS THE BASELINE"),
+        html.P("Customer economics rely on post-purchase behavior.", className='editorial-substatement'),
         
         html.Div(className='flex-row', children=[
             html.Div([html.Div("FASHION CAC PROXY", className='giant-label'), html.Div(f"₹{f_cac:,.0f}", className='giant-number fashion')]),
             html.Div([html.Div("BEAUTY CAC PROXY", className='giant-label'), html.Div(f"₹{b_cac:,.0f}", className='giant-number beauty')])
         ]),
         
-        c.annotation_box("Fashion appears to spend more to acquire an active customer, though this proxy blends new and returning marketing efforts.", 'fashion'),
+        c.annotation_box("Fashion spends more marketing capital per active customer. This proxy blends new and returning efforts.", 'fashion'),
         
         html.Div(className='chart-section', children=[
             c.chart_card(dcc.Graph(figure=c.trend_chart(YEARS, 
@@ -205,8 +205,8 @@ def build_page_acquisition(year):
 def build_page_scenarios(year):
     return html.Div(className='page-wrapper', children=[
         c.methodology_badge('07', txt.BADGE_MODEL),
-        html.H1("HOW MANY ORDERS DOES IT TAKE TO BREAK EVEN?"),
-        html.P("The answer changes when contribution per order changes.", className='editorial-substatement'),
+        html.H1("ORDERS REQUIRED TO BREAK EVEN"),
+        html.P("Required volume shifts alongside contribution per order.", className='editorial-substatement'),
         
         html.Div(className='story-container', children=[
             html.Div(className='story-text', children=[
@@ -245,7 +245,7 @@ def update_scenario(cm_adj, mkt_adj, ful_adj, ord_adj, aov_adj, year):
     return html.Div(children=[
         html.H3("MODELLED EBITDA", style={'fontSize': '14px', 'fontWeight': '800'}),
         html.Div(className='giant-number fashion', children=[f"{new_ebitda_pct:.1f}%"]),
-        html.P(f"At these assumptions, Fashion's EBITDA margin changes from {base_ebitda_pct:.1f}% to {new_ebitda_pct:.1f}%.", className='editorial-substatement'),
+        html.P(f"Fashion's EBITDA margin shifts from {base_ebitda_pct:.1f}% to {new_ebitda_pct:.1f}% under these assumptions.", className='editorial-substatement'),
         c.annotation_box(txt.p7_dynamic_scenario(new_cpo, new_orders_mn, new_bev), 'fashion')
     ])
 
@@ -263,8 +263,8 @@ def build_page_propositions():
         ]))
         
     return html.Div(className='page-wrapper', children=[
-        html.H1("WHERE TO LOOK NEXT"),
-        html.P("What the evidence suggests we investigate.", className='editorial-substatement'),
+        html.H1("STRATEGIC PROPOSITIONS"),
+        html.P("Evidence-led areas for investigation.", className='editorial-substatement'),
         html.Div(props)
     ])
 
