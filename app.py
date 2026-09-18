@@ -1,5 +1,5 @@
 """
-Nykaa Editorial Dashboard - app.py (UI Pass 2)
+Nykaa Editorial Dashboard - app.py (Final UI Polish)
 """
 from dash import Dash, html, dcc, callback, Input, Output, State
 import dash
@@ -46,11 +46,12 @@ def build_page_gap(year):
     return html.Div(className='editorial-grid', children=[
         html.Div(className='margin-column', children=[
             c.methodology_badge('01', txt.BADGE_FINANCIAL),
-            html.Div(className='hairline-top', children=[
+            html.Div(className='hairline-top', style={'marginTop': '112px'}, children=[
                 c.kpi_card('Realisation', _safe(fk.get('Realisation %')), _safe(bk.get('Realisation %')), subtitle="GMV converted into NSV", tooltip=txt.TOOLTIPS['realisation']),
                 c.kpi_card('Contribution margin', _safe(fk.get('Contribution Margin %')), _safe(bk.get('Contribution Margin %')), subtitle="₹ retained per ₹100 of NSV", tooltip=txt.TOOLTIPS['cm']),
                 c.kpi_card('Orders per customer', _safe(fk.get('Orders per Customer')), _safe(bk.get('Orders per Customer')), formatter=lambda x: f"{x:.2f}×" if x else '-', subtitle="Average annual order frequency", tooltip=txt.TOOLTIPS['opc']),
-            ])
+            ]),
+            c.annotation_box(txt.p1_dynamic_gap(f_eb, b_eb)),
         ]),
         html.Div(className='main-column', children=[
             html.Div(className='editorial-statement', children=["Fashion scales.", html.Br(), "Margins lag Beauty."]),
@@ -59,8 +60,7 @@ def build_page_gap(year):
                 html.Div([html.Div("FASHION EBITDA", className='giant-label'), html.Div(f"{f_eb:.1f}%", className='giant-number fashion')]),
                 html.Div([html.Div("BEAUTY EBITDA", className='giant-label'), html.Div(f"{b_eb:.1f}%", className='giant-number beauty')])
             ]),
-            c.annotation_box(txt.p1_dynamic_gap(f_eb, b_eb)),
-            html.P(txt.p1_gap_implication(), style={'fontSize': '16px'})
+            html.P(txt.p1_gap_implication(), style={'fontSize': '16px', 'marginTop': '40px'})
         ])
     ])
 
@@ -74,7 +74,8 @@ def build_page_money(year):
                 c.kpi_card('Cost per order', _safe(fk.get('Logistics Cost per Order')), _safe(bk.get('Logistics Cost per Order')), formatter=c.fmt_inr, subtitle="Fulfilment cost per order", tooltip=txt.TOOLTIPS['cpo']),
                 c.kpi_card('Commercial spend', _safe(fk.get('Marketing + S&D %')), _safe(bk.get('Marketing + S&D %')), subtitle="Marketing + selling costs as % of NSV", tooltip=txt.TOOLTIPS['marketing']),
                 c.kpi_card('Contribution / order', _safe(fk.get('Contribution per Order')), _safe(bk.get('Contribution per Order')), formatter=c.fmt_inr, subtitle="₹ profit per order before overheads", tooltip=None),
-            ])
+            ]),
+            c.annotation_box(txt.p2_dynamic_commercial(_safe(fk.get('Marketing + S&D %')), _safe(bk.get('Marketing + S&D %'))))
         ]),
         html.Div(className='main-column', children=[
             html.Div("The ₹100 NSV flow", className='editorial-statement'),
@@ -84,8 +85,7 @@ def build_page_money(year):
                 f_log=_safe(fk.get('Fulfilment Expense')), b_log=_safe(bk.get('Fulfilment Expense')), f_mkt=_safe(fk.get('Marketing + S&D')), b_mkt=_safe(bk.get('Marketing + S&D')),
                 f_cm=_safe(fk.get('Contribution Profit')), b_cm=_safe(bk.get('Contribution Profit')), f_oth=_safe(fk.get('Other Expenses')), b_oth=_safe(bk.get('Other Expenses')),
                 f_ebitda=_safe(fk.get('EBITDA')), b_ebitda=_safe(bk.get('EBITDA'))
-            ),
-            c.annotation_box(txt.p2_dynamic_commercial(_safe(fk.get('Marketing + S&D %')), _safe(bk.get('Marketing + S&D %'))))
+            )
         ])
     ])
 
@@ -151,7 +151,7 @@ def build_page_returns(df):
     rows = []
     for i, (reason, count) in enumerate(reasons.items()):
         rows.append(html.Tr([
-            html.Td(f"0{i+1}", style={'color': 'var(--text-muted)'}), html.Td(reason, style={'fontWeight': '700'}), html.Td(f"{(count/len(f_df))*100:.0f}%", style={'textAlign': 'right', 'color': 'var(--nykaa-pink)'})
+            html.Td(f"0{i+1}", style={'color': 'var(--text-muted)'}), html.Td(reason, style={'fontWeight': '700'}), html.Td(f"{(count/len(f_df))*100:.0f}%", style={'textAlign': 'right', 'color': 'var(--nykaa-pink)', 'fontWeight': '800'})
         ]))
         
     return html.Div(className='editorial-grid', children=[
@@ -206,7 +206,8 @@ def build_page_scenarios(year):
                 html.Div([html.Label("REDUCE FULFILMENT SPEND (AS % OF NSV)"), dcc.Slider(id='scen-ful', min=0, max=5, step=0.5, value=0, marks={i:f"-{i}%" for i in range(0,6)})], style={'marginBottom': '32px'}),
                 html.Div([html.Label("INCREASE ORDERS PER CUSTOMER (%)"), dcc.Slider(id='scen-ord', min=0, max=50, step=5, value=0, marks={i:f"+{i}%" for i in range(0,51,10)})], style={'marginBottom': '32px'}),
                 html.Div([html.Label("INCREASE AVERAGE ORDER VALUE (%)"), dcc.Slider(id='scen-aov', min=0, max=30, step=2, value=0, marks={i:f"+{i}%" for i in range(0,31,10)})]),
-            ])
+            ]),
+            html.Div(id='scenario-annotation')
         ]),
         html.Div(className='main-column', children=[
             html.Div("Orders required to break even", className='editorial-statement'),
@@ -216,7 +217,7 @@ def build_page_scenarios(year):
     ])
 
 @callback(
-    Output('scenario-results', 'children'),
+    [Output('scenario-results', 'children'), Output('scenario-annotation', 'children')],
     Input('scen-cm', 'value'), Input('scen-mkt', 'value'), Input('scen-ful', 'value'),
     Input('scen-ord', 'value'), Input('scen-aov', 'value'), Input('year-filter', 'value'),
 )
@@ -235,20 +236,22 @@ def update_scenario(cm_adj, mkt_adj, ful_adj, ord_adj, aov_adj, year):
     new_cpo = base_cpo * (1 + cm_adj / base_cm_pct) if base_cm_pct > 0 else base_cpo
     new_bev = (base_other_exp * 1e7) / new_cpo if new_cpo > 0 else 0
 
-    return html.Div(className='hairline-top', children=[
+    results = html.Div(className='hairline-top', children=[
         html.Div("MODELLED EBITDA", className='giant-label'),
         html.Div(f"{new_ebitda_pct:.1f}%", className='giant-number fashion'),
         html.Div(f"Fashion's EBITDA margin shifts from {base_ebitda_pct:.1f}% to {new_ebitda_pct:.1f}% under these assumptions.", style={'marginTop': '16px', 'fontSize': '16px'}),
-        c.annotation_box(txt.p7_dynamic_scenario(new_cpo, new_orders_mn, new_bev))
     ])
+    
+    annotation = c.annotation_box(txt.p7_dynamic_scenario(new_cpo, new_orders_mn, new_bev))
+    return results, annotation
 
 # ─── 08 PROPOSITIONS ───
 def build_page_propositions():
     props = []
     for i, p in enumerate(txt.PROPOSITIONS):
-        props.append(html.Div(className='hairline-top', style={'marginBottom': '40px'}, children=[
+        props.append(html.Div(className='prop-card', children=[
             html.Div(f"PROPOSITION 0{i+1}", className='giant-label', style={'marginBottom': '12px'}),
-            html.Div(p['observation'], style={'fontSize': '24px', 'fontWeight': '900', 'fontFamily': 'Playfair Display, serif', 'marginBottom': '20px', 'lineHeight': '1.3'}),
+            html.Div(p['observation'], style={'fontSize': '20px', 'fontWeight': '900', 'fontFamily': 'Playfair Display, serif', 'marginBottom': '20px', 'lineHeight': '1.3'}),
             html.Div("QUESTION", className='giant-label', style={'color': 'var(--nykaa-pink)'}),
             html.Div(p['question'], style={'fontSize': '14px', 'marginBottom': '20px'}),
             html.Div("DIRECTION", className='giant-label'),
@@ -256,11 +259,13 @@ def build_page_propositions():
         ]))
         
     return html.Div(className='editorial-grid', children=[
-        html.Div(className='margin-column', children=[]),
+        html.Div(className='margin-column', children=[
+            c.methodology_badge('08', "STRATEGY, Executive Summary")
+        ]),
         html.Div(className='main-column', children=[
             html.Div("Strategic propositions", className='editorial-statement'),
             html.Div("Evidence-led areas for investigation.", className='editorial-substatement'),
-            html.Div(props)
+            html.Div(className='prop-grid hairline-top', children=props)
         ])
     ])
 
