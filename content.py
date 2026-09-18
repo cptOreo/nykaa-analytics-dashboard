@@ -48,7 +48,7 @@ def p3_dynamic_growth(year, f_cm, f_mkt):
 
 def p4_dynamic_frequency(f_opc, b_opc):
     if f_opc is None or b_opc is None: return "Data missing."
-    return f"Beauty customers place {b_opc:.1f} orders annually compared to {f_opc:.1f} for Fashion customers."
+    return f"Beauty customers place {b_opc:.1f} orders per year, compared to {f_opc:.1f} in Fashion."
 
 def p7_dynamic_scenario(cpo, orders, bev):
     return f"The model requires {bev/1e6:.1f} million orders to cover other expenses given a ₹{cpo:,.0f} contribution per order."
