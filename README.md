@@ -21,3 +21,8 @@ An interactive, multi-page Dash web application exploring the profitability gap 
    `python app.py`
 
 Navigate to `http://localhost:8050` in your browser.
+
+## Data & Terminology Notes
+* **Logistics Cost per Order**: Calculated dynamically by dividing the reported **Fulfilment Expense** by the total number of **Orders**.
+* **CAC Proxy**: Calculated by dividing **Marketing + S&D** expenses by the **Annual Unique Transacting Customers (AUTC)**.
+* **Break-Even Volume**: Models the exact number of orders required to cover fixed/other expenses, given the current contribution margin per order.
