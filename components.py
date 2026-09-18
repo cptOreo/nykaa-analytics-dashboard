@@ -44,15 +44,14 @@ def fmt_pts(val, decimals=1):
 
 # ─── Chart Defaults ──────────────────────────────────────────────────
 def get_chart_layout(**kwargs):
-    """Editorial, minimalistic Plotly layout."""
     layout = dict(
         font=dict(family="Inter, sans-serif", color=COLORS['charcoal']),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
-        margin=dict(l=20, r=20, t=40, b=20),
-        xaxis=dict(showgrid=False, zeroline=False, showline=True, linecolor=COLORS['black'], linewidth=2),
-        yaxis=dict(showgrid=False, zeroline=False, showline=True, linecolor=COLORS['black'], linewidth=2),
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+        margin=dict(l=0, r=0, t=40, b=0), # tighter margins
+        xaxis=dict(showgrid=False, zeroline=False, showline=False, showticklabels=True, tickfont=dict(weight='bold')),
+        yaxis=dict(showgrid=False, zeroline=False, showline=False, showticklabels=False), # hide Y axis entirely
+        showlegend=False, # kill legends globally
     )
     layout.update(kwargs)
     return layout
@@ -153,17 +152,17 @@ def create_gap_plot(labels, f_vals, b_vals, title, formatter=fmt_pct):
         # Line connecting them
         fig.add_trace(go.Scatter(
             x=[fv, bv], y=[labels[i], labels[i]],
-            mode='lines', line=dict(color=COLORS['border'], width=4),
+            mode='lines', line=dict(color=COLORS['border'], width=1),
             showlegend=False
         ))
         # Fashion dot
         fig.add_trace(go.Scatter(
             x=[fv], y=[labels[i]],
             mode='markers+text',
-            marker=dict(color=COLORS['fashion'], size=16),
+            marker=dict(color=COLORS['fashion'], size=12),
             text=[formatter(fv)],
             textposition="top center",
-            textfont=dict(color=COLORS['fashion'], size=12, weight='bold'),
+            textfont=dict(color=COLORS['fashion'], size=11, weight='bold'),
             name='Fashion' if i == 0 else '', showlegend=(i==0)
         ))
         # Beauty dot
@@ -186,34 +185,37 @@ def create_gap_plot(labels, f_vals, b_vals, title, formatter=fmt_pct):
     return fig
 
 def trend_chart(x_labels, y_fashion, y_beauty, title, y_suffix='', annotate_gap=False):
-    """Editorial trend line chart."""
     fig = go.Figure()
+    
+    # Text labels for start and end only to reduce clutter
+    f_text = [f"{v:.1f}{y_suffix}" if i in (0, len(y_fashion)-1) else "" for i, v in enumerate(y_fashion)]
+    b_text = [f"{v:.1f}{y_suffix}" if i in (0, len(y_beauty)-1) else "" for i, v in enumerate(y_beauty)]
     
     fig.add_trace(go.Scatter(
         x=x_labels, y=y_fashion, name='Fashion',
-        mode='lines+markers', line=dict(color=COLORS['fashion'], width=3),
-        marker=dict(size=8)
+        mode='lines+markers+text', line=dict(color=COLORS['fashion'], width=3),
+        marker=dict(size=8), text=f_text, textposition="top center", textfont=dict(color=COLORS['fashion'], weight='bold')
     ))
     fig.add_trace(go.Scatter(
         x=x_labels, y=y_beauty, name='Beauty',
-        mode='lines+markers', line=dict(color=COLORS['beauty'], width=2),
-        marker=dict(size=6)
+        mode='lines+markers+text', line=dict(color=COLORS['beauty'], width=3),
+        marker=dict(size=8), text=b_text, textposition="bottom center", textfont=dict(color=COLORS['beauty'], weight='bold')
     ))
 
-    # Add Gap Annotation on last point
     if annotate_gap and y_fashion[-1] is not None and y_beauty[-1] is not None:
         gap = y_fashion[-1] - y_beauty[-1]
         fig.add_annotation(
             x=x_labels[-1], y=(y_fashion[-1] + y_beauty[-1])/2,
             text=f"{'▲' if gap>0 else '▼'} {abs(gap):.1f} Gap",
-            showarrow=False, xshift=40,
+            showarrow=False, xshift=45,
             font=dict(size=12, color=COLORS['charcoal'], weight='bold')
         )
 
     fig.update_layout(**get_chart_layout(
-        title=dict(text=title, font=dict(size=18, weight='bold')),
-        height=350,
-        yaxis=dict(ticksuffix=y_suffix, showgrid=True, gridcolor=COLORS['border'])
+        title=dict(text=title, font=dict(size=16, weight='bold')),
+        height=320,
+        yaxis=dict(showticklabels=False, showgrid=False, zeroline=False), # Kill Y axis
+        margin=dict(r=80, l=10, t=40, b=20) # leave room for gap annotation
     ))
     return fig
 
