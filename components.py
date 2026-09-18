@@ -1,6 +1,8 @@
-import pandas as pd
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 from dash import html
+import pandas as pd
+import numpy as np
 
 COLORS = {'fashion': '#E80071', 'beauty': '#8F7C9E', 'charcoal': '#111111', 'muted': '#666666'}
 
@@ -86,8 +88,8 @@ def trend_chart(x_labels, y_fashion, y_beauty, title, y_suffix='', annotate_gap=
 
     fig.update_layout(
         title=dict(text=title, font=dict(size=10, weight='bold', color=COLORS['muted']), x=0, y=0.9),
-        height=220,
-        margin=dict(l=0, r=60, t=30, b=0),
+        height=240,
+        margin=dict(l=0, r=60, t=40, b=0),
         paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
         xaxis=dict(showgrid=False, zeroline=False, showline=False, tickfont=dict(size=10, weight='bold', color=COLORS['charcoal'])),
         yaxis=y_axis_layout
@@ -108,23 +110,36 @@ def create_customer_journey(metrics):
     return html.Div(className='journey-matrix', children=cols)
 
 def create_gap_plot(labels, fashion_vals, beauty_vals, title, formatter=fmt_pct):
-    fig = go.Figure()
+    fig = make_subplots(rows=len(labels), cols=1, shared_xaxes=False, vertical_spacing=0.15)
     
     for i, (label, f_val, b_val) in enumerate(zip(labels, fashion_vals, beauty_vals)):
+        row = i + 1
+        
+        # Add invisible annotation for row label (simulating y-axis)
+        fig.add_annotation(
+            x=0, y=0.5, xref=f"x{row} domain", yref=f"y{row} domain",
+            text=label, showarrow=False, xanchor="right", xshift=-40,
+            font=dict(size=10, weight="bold", color=COLORS['charcoal'])
+        )
+
         if pd.isna(f_val) or pd.isna(b_val): continue
+            
         min_val, max_val = min(f_val, b_val), max(f_val, b_val)
         
-        fig.add_trace(go.Scatter(x=[min_val, max_val], y=[i, i], mode='lines', line=dict(color='#E5E5E5', width=2), showlegend=False, hoverinfo='skip'))
+        fig.add_trace(go.Scatter(x=[min_val, max_val], y=[0, 0], mode='lines', line=dict(color='#E5E5E5', width=2), showlegend=False, hoverinfo='skip'), row=row, col=1)
+        fig.add_trace(go.Scatter(x=[f_val], y=[0], mode='markers+text', name='Fashion', marker=dict(color=COLORS['fashion'], size=8), text=[formatter(f_val)], textposition='top center', textfont=dict(color=COLORS['fashion'], size=10, weight='bold'), showlegend=False), row=row, col=1)
+        fig.add_trace(go.Scatter(x=[b_val], y=[0], mode='markers+text', name='Beauty', marker=dict(color=COLORS['beauty'], size=8), text=[formatter(b_val)], textposition='bottom center', textfont=dict(color=COLORS['beauty'], size=10, weight='bold'), showlegend=False), row=row, col=1)
         
-        fig.add_trace(go.Scatter(x=[f_val], y=[i], mode='markers+text', name='Fashion', marker=dict(color=COLORS['fashion'], size=8), text=[formatter(f_val)], textposition='top center', textfont=dict(color=COLORS['fashion'], size=10, weight='bold'), showlegend=False))
-        fig.add_trace(go.Scatter(x=[b_val], y=[i], mode='markers+text', name='Beauty', marker=dict(color=COLORS['beauty'], size=8), text=[formatter(b_val)], textposition='bottom center', textfont=dict(color=COLORS['beauty'], size=10, weight='bold'), showlegend=False))
+        # Add padding to x-axis to prevent cutoff
+        x_range = max_val - min_val
+        pad = max(x_range * 0.2, 0.5)
+        fig.update_xaxes(range=[min_val - pad, max_val + pad], showgrid=False, zeroline=False, showticklabels=False, row=row, col=1)
+        fig.update_yaxes(showgrid=False, zeroline=False, showticklabels=False, range=[-1, 1], row=row, col=1)
 
     fig.update_layout(
-        title=dict(text=title, font=dict(size=10, weight='bold', color=COLORS['muted']), x=0, y=0.9),
-        height=max(120, len(labels) * 50 + 60),
-        margin=dict(l=0, r=40, t=40, b=0),
-        yaxis=dict(tickmode='array', tickvals=list(range(len(labels))), ticktext=labels, autorange="reversed", tickfont=dict(size=10, weight='bold', color=COLORS['charcoal']), showgrid=False, zeroline=False),
-        xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+        title=dict(text=title, font=dict(size=10, weight='bold', color=COLORS['muted']), x=0, y=0.95),
+        height=max(120, len(labels) * 60 + 60),
+        margin=dict(l=150, r=40, t=40, b=0),
         paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)'
     )
     return fig
