@@ -117,7 +117,7 @@ def create_gap_plot(labels, fashion_vals, beauty_vals, title, formatter=fmt_pct)
         
         # Add invisible annotation for row label (simulating y-axis)
         fig.add_annotation(
-            x=0, y=0.5, xref=f"x{row} domain", yref=f"y{row} domain",
+            x=0, y=0.5, xref=f"x{row if row > 1 else ''} domain", yref=f"y{row if row > 1 else ''} domain",
             text=label, showarrow=False, xanchor="right", xshift=-40,
             font=dict(size=10, weight="bold", color=COLORS['charcoal'])
         )
