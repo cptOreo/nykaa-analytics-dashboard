@@ -102,10 +102,10 @@ def build_page_growth(year):
             html.Div(txt.p3_dynamic_growth(year, _safe(fk.get('Contribution Margin %')), _safe(fk.get('Marketing + S&D %'))), className='editorial-substatement'),
             html.Div(className='hairline-top flex-row', children=[
                 html.Div(className='flex-1', children=[
-                    c.chart_card(dcc.Graph(config={'displayModeBar': False}, figure=c.trend_chart(YEARS, [_safe(_kpis(y, 'Fashion').get('Contribution Margin %')) for y in YEARS], [_safe(_kpis(y, 'Beauty').get('Contribution Margin %')) for y in YEARS], "CONTRIBUTION MARGIN", "%", annotate_gap=True, yaxis_range=[-5, 45])))
+                    c.chart_card(dcc.Graph(figure=c.trend_chart(YEARS, [_safe(_kpis(y, 'Fashion').get('Contribution Margin %')) for y in YEARS], [_safe(_kpis(y, 'Beauty').get('Contribution Margin %')) for y in YEARS], "CONTRIBUTION MARGIN", "%", annotate_gap=True, yaxis_range=[-5, 45])))
                 ]),
                 html.Div(className='flex-1', children=[
-                    c.chart_card(dcc.Graph(config={'displayModeBar': False}, figure=c.trend_chart(YEARS, [_safe(_kpis(y, 'Fashion').get('Marketing + S&D %')) for y in YEARS], [_safe(_kpis(y, 'Beauty').get('Marketing + S&D %')) for y in YEARS], "COMMERCIAL SPEND", "%", annotate_gap=True, yaxis_range=[-5, 45])))
+                    c.chart_card(dcc.Graph(figure=c.trend_chart(YEARS, [_safe(_kpis(y, 'Fashion').get('Marketing + S&D %')) for y in YEARS], [_safe(_kpis(y, 'Beauty').get('Marketing + S&D %')) for y in YEARS], "COMMERCIAL SPEND", "%", annotate_gap=True, yaxis_range=[-5, 45])))
                 ])
             ])
         ])
@@ -136,7 +136,7 @@ def build_page_customer(df, year):
             html.Div("Frequency dictates economics. Single-purchase customers carry a different financial profile than repeat buyers.", className='editorial-substatement'),
             c.create_customer_journey(metrics),
             html.Div(style={'marginTop': '20px'}, children=[
-                c.chart_card(dcc.Graph(config={'displayModeBar': False}, figure=c.create_gap_plot(['Return Rate', 'Repeat Purchase', 'Repurchase Intent (1-5)'], [f_ret, f_rep, df[df['category']=='Fashion']['repurchase_intent_3m_1_5'].mean()], [b_ret, b_rep, df[df['category']=='Beauty']['repurchase_intent_3m_1_5'].mean()], "BEHAVIOURAL GAPS", formatter=lambda v: f"{v:.1f}%" if v > 10 else f"{v:.2f}")))
+                c.chart_card(dcc.Graph(figure=c.create_gap_plot(['Return Rate', 'Repeat Purchase', 'Repurchase Intent (1-5)'], [f_ret, f_rep, df[df['category']=='Fashion']['repurchase_intent_3m_1_5'].mean()], [b_ret, b_rep, df[df['category']=='Beauty']['repurchase_intent_3m_1_5'].mean()], "BEHAVIOURAL GAPS", formatter=lambda v: f"{v:.1f}%" if v > 10 else f"{v:.2f}")))
             ])
         ])
     ])
@@ -200,7 +200,7 @@ def build_page_acquisition(year):
                 html.Div([html.Div("BEAUTY CAC PROXY", className='giant-label'), html.Div(f"₹{b_cac:,.0f}", className='giant-number-secondary beauty')])
             ]),
             html.Div(style={'marginTop': '20px'}, children=[
-                c.chart_card(dcc.Graph(config={'displayModeBar': False}, figure=c.trend_chart(YEARS, [_safe(_kpis(y, 'Fashion').get('CAC Proxy')) for y in YEARS], [_safe(_kpis(y, 'Beauty').get('CAC Proxy')) for y in YEARS], "CUSTOMER ACQUISITION COST PROXY", annotate_gap=True)))
+                c.chart_card(dcc.Graph(figure=c.trend_chart(YEARS, [_safe(_kpis(y, 'Fashion').get('CAC Proxy')) for y in YEARS], [_safe(_kpis(y, 'Beauty').get('CAC Proxy')) for y in YEARS], "CUSTOMER ACQUISITION COST PROXY", annotate_gap=True)))
             ])
         ])
     ])

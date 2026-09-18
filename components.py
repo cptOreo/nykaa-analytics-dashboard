@@ -76,8 +76,8 @@ def trend_chart(x_labels, y_fashion, y_beauty, title, y_suffix='', annotate_gap=
     f_text = [f"{v:.1f}{y_suffix}" if i in (0, len(y_fashion)-1) else "" for i, v in enumerate(y_fashion)]
     b_text = [f"{v:.1f}{y_suffix}" if i in (0, len(y_beauty)-1) else "" for i, v in enumerate(y_beauty)]
     
-    fig.add_trace(go.Scatter(x=x_labels, y=y_fashion, mode='lines+markers+text', hoverinfo='skip', line=dict(color=COLORS['fashion'], width=3), marker=dict(size=6), text=f_text, textposition="top center", textfont=dict(color=COLORS['fashion'], weight='bold', size=10), showlegend=False))
-    fig.add_trace(go.Scatter(x=x_labels, y=y_beauty, mode='lines+markers+text', hoverinfo='skip', line=dict(color=COLORS['beauty'], width=3), marker=dict(size=6), text=b_text, textposition="bottom center", textfont=dict(color=COLORS['beauty'], weight='bold', size=10), showlegend=False))
+    fig.add_trace(go.Scatter(x=x_labels, y=y_fashion, mode='lines+markers+text', line=dict(color=COLORS['fashion'], width=3), marker=dict(size=6), text=f_text, textposition="top center", textfont=dict(color=COLORS['fashion'], weight='bold', size=10), showlegend=False))
+    fig.add_trace(go.Scatter(x=x_labels, y=y_beauty, mode='lines+markers+text', line=dict(color=COLORS['beauty'], width=3), marker=dict(size=6), text=b_text, textposition="bottom center", textfont=dict(color=COLORS['beauty'], weight='bold', size=10), showlegend=False))
 
     if annotate_gap and y_fashion[-1] is not None and y_beauty[-1] is not None:
         gap = y_fashion[-1] - y_beauty[-1]
