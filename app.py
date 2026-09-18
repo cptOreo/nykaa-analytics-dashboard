@@ -1024,6 +1024,24 @@ def build_page8(year):
 #  CALLBACKS
 # ═══════════════════════════════════════════════════════════════════
 
+
+@callback(
+    [Output(f'nav-{href.strip("/") or "home"}', 'className') for href, _, _ in NAV_ITEMS],
+    Input('url', 'pathname')
+)
+def update_active_links(pathname):
+    if pathname is None:
+        pathname = '/'
+    
+    classes = []
+    for href, _, _ in NAV_ITEMS:
+        # Match exact path, or root
+        if pathname == href:
+            classes.append('nav-link active')
+        else:
+            classes.append('nav-link')
+    return classes
+
 @callback(Output('page-content', 'children'),
           Input('url', 'pathname'),
           Input('year-filter', 'value'))
