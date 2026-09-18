@@ -256,8 +256,7 @@ def route_page(pathname, year):
     elif pathname == '/propositions': return build_page_propositions()
     return html.Div("PAGE NOT FOUND (Building...)", className='editorial-statement')
 
-if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=8050, debug=False)
+
 
 # ─── PAGE 5: RETURNS ──────────────────────────────────────────────
 def build_page_returns(df):
@@ -411,3 +410,7 @@ def build_page_propositions():
     ])
 
 # ─── ROUTING UPDATE (Appending the new pages) ────────────────────────
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8050, debug=False)
