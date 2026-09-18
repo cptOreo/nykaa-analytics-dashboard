@@ -57,8 +57,8 @@ def build_page_gap(year):
             html.Div(className='editorial-statement', children=["Fashion scales.", html.Br(), "Margins lag Beauty."]),
             html.Div(txt.p1_gap_substatement(), className='editorial-substatement'),
             html.Div(className='hairline-top flex-row', children=[
-                html.Div([html.Div("FASHION EBITDA", className='giant-label'), html.Div(f"{f_eb:.1f}%", className='giant-number fashion')]),
-                html.Div([html.Div("BEAUTY EBITDA", className='giant-label'), html.Div(f"{b_eb:.1f}%", className='giant-number beauty')])
+                html.Div([html.Div("FASHION EBITDA", className='giant-label'), html.Div(f"{f_eb:.1f}%", className='giant-number-secondary fashion')]),
+                html.Div([html.Div("BEAUTY EBITDA", className='giant-label'), html.Div(f"{b_eb:.1f}%", className='giant-number-secondary beauty')])
             ]),
             html.P(txt.p1_gap_implication(), style={'fontSize': '16px', 'marginTop': '20px'})
         ])
@@ -102,10 +102,10 @@ def build_page_growth(year):
             html.Div(txt.p3_dynamic_growth(year, _safe(fk.get('Contribution Margin %')), _safe(fk.get('Marketing + S&D %'))), className='editorial-substatement'),
             html.Div(className='hairline-top flex-row', children=[
                 html.Div(className='flex-1', children=[
-                    c.chart_card(dcc.Graph(figure=c.trend_chart(YEARS, [_safe(_kpis(y, 'Fashion').get('Contribution Margin %')) for y in YEARS], [_safe(_kpis(y, 'Beauty').get('Contribution Margin %')) for y in YEARS], "CONTRIBUTION MARGIN", "%", annotate_gap=True, yaxis_range=[-5, 45])))
+                    c.chart_card(dcc.Graph(config={'displayModeBar': False}, figure=c.trend_chart(YEARS, [_safe(_kpis(y, 'Fashion').get('Contribution Margin %')) for y in YEARS], [_safe(_kpis(y, 'Beauty').get('Contribution Margin %')) for y in YEARS], "CONTRIBUTION MARGIN", "%", annotate_gap=True, yaxis_range=[-5, 45])))
                 ]),
                 html.Div(className='flex-1', children=[
-                    c.chart_card(dcc.Graph(figure=c.trend_chart(YEARS, [_safe(_kpis(y, 'Fashion').get('Marketing + S&D %')) for y in YEARS], [_safe(_kpis(y, 'Beauty').get('Marketing + S&D %')) for y in YEARS], "COMMERCIAL SPEND", "%", annotate_gap=True, yaxis_range=[-5, 45])))
+                    c.chart_card(dcc.Graph(config={'displayModeBar': False}, figure=c.trend_chart(YEARS, [_safe(_kpis(y, 'Fashion').get('Marketing + S&D %')) for y in YEARS], [_safe(_kpis(y, 'Beauty').get('Marketing + S&D %')) for y in YEARS], "COMMERCIAL SPEND", "%", annotate_gap=True, yaxis_range=[-5, 45])))
                 ])
             ])
         ])
@@ -129,7 +129,6 @@ def build_page_customer(df, year):
 
     return html.Div(className='editorial-grid', children=[
         html.Div(className='margin-column', children=[
-            c.synthetic_data_banner(),
             c.annotation_box(txt.p4_dynamic_frequency(f_opc, b_opc)),
         ]),
         html.Div(className='main-column', children=[
@@ -137,7 +136,7 @@ def build_page_customer(df, year):
             html.Div("Frequency dictates economics. Single-purchase customers carry a different financial profile than repeat buyers.", className='editorial-substatement'),
             c.create_customer_journey(metrics),
             html.Div(style={'marginTop': '20px'}, children=[
-                c.chart_card(dcc.Graph(figure=c.create_gap_plot(['Return Rate', 'Repeat Purchase', 'Repurchase Intent (1-5)'], [f_ret, f_rep, df[df['category']=='Fashion']['repurchase_intent_3m_1_5'].mean()], [b_ret, b_rep, df[df['category']=='Beauty']['repurchase_intent_3m_1_5'].mean()], "BEHAVIOURAL GAPS", formatter=lambda v: f"{v:.1f}%" if v > 10 else f"{v:.2f}")))
+                c.chart_card(dcc.Graph(config={'displayModeBar': False}, figure=c.create_gap_plot(['Return Rate', 'Repeat Purchase', 'Repurchase Intent (1-5)'], [f_ret, f_rep, df[df['category']=='Fashion']['repurchase_intent_3m_1_5'].mean()], [b_ret, b_rep, df[df['category']=='Beauty']['repurchase_intent_3m_1_5'].mean()], "BEHAVIOURAL GAPS", formatter=lambda v: f"{v:.1f}%" if v > 10 else f"{v:.2f}")))
             ])
         ])
     ])
@@ -149,22 +148,34 @@ def build_page_returns(df):
     reasons = f_df['return_reason'].value_counts()
     
     rows = []
-    for i, (reason, count) in enumerate(reasons.items()):
-        rows.append(html.Tr([
-            html.Td(f"0{i+1}", style={'color': 'var(--text-muted)'}), html.Td(reason, style={'fontWeight': '700'}), html.Td(f"{(count/len(f_df))*100:.0f}%", style={'textAlign': 'right', 'color': 'var(--nykaa-pink)', 'fontWeight': '800'})
-        ]))
+    if not reasons.empty:
+        max_count = reasons.max()
+        for i, (reason, count) in enumerate(reasons.items()):
+            pct = (count/len(f_df))*100
+            bar_width = (count/max_count)*100
+            
+            bar_html = html.Div(style={'display': 'flex', 'alignItems': 'center', 'justifyContent': 'flex-end', 'gap': '16px'}, children=[
+                html.Div(style={'width': '150px', 'height': '3px', 'backgroundColor': '#F4F4F4', 'display': 'flex'}, children=[
+                    html.Div(style={'width': f"{bar_width}%", 'height': '100%', 'backgroundColor': 'var(--nykaa-pink)'})
+                ]),
+                html.Div(f"{pct:.0f}%", style={'width': '35px', 'textAlign': 'right', 'color': 'var(--nykaa-pink)', 'fontWeight': '900'})
+            ])
+            
+            rows.append(html.Tr([
+                html.Td(f"{i+1:02d}", style={'color': 'var(--text-light)', 'width': '40px', 'fontWeight': '700'}), 
+                html.Td(reason, style={'fontWeight': '700'}), 
+                html.Td(bar_html, style={'paddingRight': '0'})
+            ]))
         
     return html.Div(className='editorial-grid', children=[
         html.Div(className='margin-column', children=[
-            c.synthetic_data_banner(),
             c.annotation_box("Fashion's higher return rate correlates with a wider cost burden. Size and fit drive 40% of returns.")
         ]),
         html.Div(className='main-column', children=[
             html.Div("Returns extend the order lifecycle", className='editorial-statement'),
             html.Div("Order economics continue post-checkout for the Fashion segment.", className='editorial-substatement'),
             html.Div(className='hairline-top', children=[
-                html.Table(className='returns-table', children=[
-                    html.Thead(html.Tr([html.Th("RANK"), html.Th("FASHION RETURN REASON"), html.Th("SHARE", style={'textAlign': 'right'})])),
+                html.Table(className='returns-table', style={'width': '100%'}, children=[
                     html.Tbody(rows)
                 ])
             ])
@@ -185,11 +196,11 @@ def build_page_acquisition(year):
             html.Div("Acquisition sets the baseline", className='editorial-statement'),
             html.Div("Customer economics rely on post-purchase behavior.", className='editorial-substatement'),
             html.Div(className='hairline-top flex-row', children=[
-                html.Div([html.Div("FASHION CAC PROXY", className='giant-label'), html.Div(f"₹{f_cac:,.0f}", className='giant-number fashion')]),
-                html.Div([html.Div("BEAUTY CAC PROXY", className='giant-label'), html.Div(f"₹{b_cac:,.0f}", className='giant-number beauty')])
+                html.Div([html.Div("FASHION CAC PROXY", className='giant-label'), html.Div(f"₹{f_cac:,.0f}", className='giant-number-secondary fashion')]),
+                html.Div([html.Div("BEAUTY CAC PROXY", className='giant-label'), html.Div(f"₹{b_cac:,.0f}", className='giant-number-secondary beauty')])
             ]),
             html.Div(style={'marginTop': '20px'}, children=[
-                c.chart_card(dcc.Graph(figure=c.trend_chart(YEARS, [_safe(_kpis(y, 'Fashion').get('CAC Proxy')) for y in YEARS], [_safe(_kpis(y, 'Beauty').get('CAC Proxy')) for y in YEARS], "CUSTOMER ACQUISITION COST PROXY", annotate_gap=True)))
+                c.chart_card(dcc.Graph(config={'displayModeBar': False}, figure=c.trend_chart(YEARS, [_safe(_kpis(y, 'Fashion').get('CAC Proxy')) for y in YEARS], [_safe(_kpis(y, 'Beauty').get('CAC Proxy')) for y in YEARS], "CUSTOMER ACQUISITION COST PROXY", annotate_gap=True)))
             ])
         ])
     ])
@@ -238,7 +249,7 @@ def update_scenario(cm_adj, mkt_adj, ful_adj, ord_adj, aov_adj, year):
 
     results = html.Div(className='hairline-top', children=[
         html.Div("MODELLED EBITDA", className='giant-label'),
-        html.Div(f"{new_ebitda_pct:.1f}%", className='giant-number fashion'),
+        html.Div(f"{new_ebitda_pct:.1f}%", className='giant-number-secondary fashion'),
         html.Div(f"Fashion's EBITDA margin shifts from {base_ebitda_pct:.1f}% to {new_ebitda_pct:.1f}% under these assumptions.", style={'marginTop': '16px', 'fontSize': '16px'}),
     ])
     
@@ -270,7 +281,7 @@ def build_page_propositions():
     ])
 
 # ─── APP LAYOUT ───
-app.layout = html.Div(className='app-container', children=[dcc.Location(id='url', refresh=False), make_topnav(), html.Div(id='page-content')])
+app.layout = html.Div(className='app-container', children=[dcc.Location(id='url', refresh=False), make_topnav(), html.Div(id='page-content'), html.Div('RESEARCH, SYNTHETIC PRIMARY RESEARCH DATA (PLACEHOLDER FOR PROTOTYPING)', className='editorial-footnote', style={'padding': '0 40px 16px 40px'})])
 
 # ─── ROUTING ───
 @callback([Output(f'nav-{href.strip("/") or "home"}', 'className') for href, _, _ in txt.NAV_ITEMS], Input('url', 'pathname'))

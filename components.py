@@ -21,7 +21,7 @@ def kpi_card(title, val_f, val_b, formatter=fmt_pct, subtitle=None, tooltip=None
         (html.Div(className='kpi-subtitle', children=subtitle) if subtitle else None),
         html.Div(className='kpi-row', children=[html.Div("FASHION", className='kpi-seg fashion'), html.Div(formatter(val_f), className='kpi-val')]),
         html.Div(className='kpi-row', children=[html.Div("BEAUTY", className='kpi-seg beauty'), html.Div(formatter(val_b), className='kpi-val')]),
-        (html.Div(f"{'▲' if gap>0 else '▼'} {abs(gap):.1f} Gap", className='kpi-gap') if gap is not None else None)
+        (html.Div(f"+{abs(gap):.1f}pts" if gap>0 else f"-{abs(gap):.1f}pts", className='kpi-gap') if gap is not None else None)
     ])
 
 def annotation_box(text, chart_name=None):
@@ -76,12 +76,12 @@ def trend_chart(x_labels, y_fashion, y_beauty, title, y_suffix='', annotate_gap=
     f_text = [f"{v:.1f}{y_suffix}" if i in (0, len(y_fashion)-1) else "" for i, v in enumerate(y_fashion)]
     b_text = [f"{v:.1f}{y_suffix}" if i in (0, len(y_beauty)-1) else "" for i, v in enumerate(y_beauty)]
     
-    fig.add_trace(go.Scatter(x=x_labels, y=y_fashion, mode='lines+markers+text', line=dict(color=COLORS['fashion'], width=3), marker=dict(size=6), text=f_text, textposition="top center", textfont=dict(color=COLORS['fashion'], weight='bold', size=10), showlegend=False))
-    fig.add_trace(go.Scatter(x=x_labels, y=y_beauty, mode='lines+markers+text', line=dict(color=COLORS['beauty'], width=3), marker=dict(size=6), text=b_text, textposition="bottom center", textfont=dict(color=COLORS['beauty'], weight='bold', size=10), showlegend=False))
+    fig.add_trace(go.Scatter(x=x_labels, y=y_fashion, mode='lines+markers+text', hoverinfo='skip', line=dict(color=COLORS['fashion'], width=3), marker=dict(size=6), text=f_text, textposition="top center", textfont=dict(color=COLORS['fashion'], weight='bold', size=10), showlegend=False))
+    fig.add_trace(go.Scatter(x=x_labels, y=y_beauty, mode='lines+markers+text', hoverinfo='skip', line=dict(color=COLORS['beauty'], width=3), marker=dict(size=6), text=b_text, textposition="bottom center", textfont=dict(color=COLORS['beauty'], weight='bold', size=10), showlegend=False))
 
     if annotate_gap and y_fashion[-1] is not None and y_beauty[-1] is not None:
         gap = y_fashion[-1] - y_beauty[-1]
-        fig.add_annotation(x=x_labels[-1], y=(y_fashion[-1] + y_beauty[-1])/2, text=f"{'▲' if gap>0 else '▼'} {abs(gap):.1f} Gap", showarrow=False, xshift=35, font=dict(size=10, color=COLORS['charcoal'], weight='bold'))
+        fig.add_annotation(x=x_labels[-1], y=(y_fashion[-1] + y_beauty[-1])/2, text=f"+{abs(gap):.1f}pts" if gap>0 else f"-{abs(gap):.1f}pts", showarrow=False, xshift=35, font=dict(size=10, color=COLORS['charcoal'], weight='bold'))
 
     y_axis_layout = dict(showticklabels=False, showgrid=False, zeroline=False)
     if yaxis_range: y_axis_layout['range'] = yaxis_range
