@@ -54,7 +54,7 @@ def build_page_gap(year):
             c.annotation_box(txt.p1_dynamic_gap(f_eb, b_eb)),
         ]),
         html.Div(className='main-column', children=[
-            html.Div(className='editorial-statement', children=["Fashion scales.", html.Br(), "Margins lag Beauty."]),
+            html.Div(className='editorial-statement', children="Nykaa hasn’t been able to match Beauty’s EBITDA margins in Fashion, despite running a similar business model, and operating in the market for eight years."),
             html.Div(txt.p1_gap_substatement(), className='editorial-substatement'),
             html.Div(className='hairline-top flex-row', children=[
                 html.Div([html.Div("FASHION EBITDA", className='giant-label'), html.Div(f"{f_eb:.1f}%", className='giant-number-secondary fashion')]),
