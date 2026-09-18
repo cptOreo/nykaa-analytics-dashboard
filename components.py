@@ -139,7 +139,7 @@ def create_gap_plot(labels, fashion_vals, beauty_vals, title, formatter=fmt_pct)
     fig.update_layout(
         title=dict(text=title, font=dict(size=10, weight='bold', color=COLORS['muted']), x=0, y=0.95),
         height=max(120, len(labels) * 60 + 60),
-        margin=dict(l=150, r=40, t=40, b=0),
+        margin=dict(l=190, r=40, t=40, b=0),
         paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)'
     )
     return fig
