@@ -64,3 +64,9 @@ PROPOSITIONS = [
         "direction": "Evaluate community-led growth and content loops against direct-response spend limits."
     }
 ]
+
+def p1_gap_substatement():
+    return "Fashion has expanded meaningfully, but its economics remain structurally different from Beauty."
+
+def p1_gap_implication():
+    return "The gap becomes visible in realisation, selling costs, fulfilment and repeat behaviour."
