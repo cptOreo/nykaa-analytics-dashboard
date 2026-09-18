@@ -1,91 +1,100 @@
-"""
-components.py — Nykaa Editorial UI Components (UI Pass 2)
-"""
-from dash import html, dcc
 import plotly.graph_objects as go
-import numpy as np
-import content as txt
+from dash import html
 
-COLORS = {
-    'fashion': '#E80071',
-    'beauty': '#8F7C9E',
-    'black': '#111111',
-    'charcoal': '#111111',
-    'muted': '#666666',
-    'border': '#111111',
-    'border_light': '#E5E5E5',
-    'negative': '#D94B4B'
-}
+COLORS = {'fashion': '#E80071', 'beauty': '#8F7C9E', 'charcoal': '#111111', 'muted': '#666666'}
 
-def fmt_pct(val, decimals=1): return f"{val:.{decimals}f}%" if val is not None and not np.isnan(val) else '-'
-def fmt_inr(val): return f"₹{val:,.0f}" if val is not None and not np.isnan(val) else '-'
-def fmt_number(val, decimals=2): return f"{val:.{decimals}f}" if val is not None and not np.isnan(val) else '-'
+def fmt_inr(v): return f"₹{v:,.0f}" if v else "-"
+def fmt_pct(v): return f"{v:.1f}%" if v else "-"
+def fmt_number(v): return f"{v:.2f}" if v else "-"
 
-def get_chart_layout(**kwargs):
-    layout = dict(
-        font=dict(family="Inter, sans-serif", color=COLORS['charcoal']),
-        paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
-        margin=dict(l=0, r=0, t=40, b=0),
-        xaxis=dict(showgrid=False, zeroline=False, showline=False, showticklabels=True, tickfont=dict(weight='bold')),
-        yaxis=dict(showgrid=False, zeroline=False, showline=False, showticklabels=False),
-        showlegend=False,
-    )
-    layout.update(kwargs)
-    return layout
+def methodology_badge(number, text):
+    return html.Div([html.Div(number, style={'fontSize': '12px', 'fontWeight': '900', 'color': 'var(--nykaa-pink)', 'marginBottom': '4px'}), html.Div(text, style={'fontSize': '9px', 'fontWeight': '800', 'textTransform': 'uppercase', 'color': 'var(--text-muted)'})], style={'marginBottom': '16px'})
 
-def kpi_card(label, f_val, b_val, formatter=fmt_pct, tooltip=None, subtitle=None):
-    fd, bd = formatter(f_val), formatter(b_val)
-    gap = f_val - b_val if f_val is not None and b_val is not None else None
+def kpi_card(title, val_f, val_b, formatter=fmt_pct, subtitle=None, tooltip=None):
+    gap = val_f - val_b if val_f is not None and val_b is not None else None
     
-    label_el = [html.Span(label)]
-    if tooltip: label_el.append(html.Span(" ⓘ", className='tooltip-icon', title=tooltip))
-
-    children = [html.Div(label_el, className='kpi-label')]
-    if subtitle: children.append(html.Div(subtitle, className='kpi-subtitle'))
-        
-    children.extend([
-        html.Div([html.Span('FASHION', className='kpi-seg fashion'), html.Span(fd, className='kpi-val')], className='kpi-row'),
-        html.Div([html.Span('BEAUTY', className='kpi-seg beauty'), html.Span(bd, className='kpi-val')], className='kpi-row')
+    return html.Div(className='kpi-item', children=[
+        html.Div(className='kpi-label', children=title),
+        (html.Div(className='kpi-subtitle', children=subtitle) if subtitle else None),
+        html.Div(className='kpi-row', children=[html.Div("FASHION", className='kpi-seg fashion'), html.Div(formatter(val_f), className='kpi-val')]),
+        html.Div(className='kpi-row', children=[html.Div("BEAUTY", className='kpi-seg beauty'), html.Div(formatter(val_b), className='kpi-val')]),
+        (html.Div(f"{'▲' if gap>0 else '▼'} {abs(gap):.1f} Gap", className='kpi-gap') if gap is not None else None)
     ])
-    if gap is not None:
-        children.append(html.Div(f"{'▼' if gap < 0 else '▲'} {abs(gap):.1f} Gap", className='kpi-gap'))
-    
-    return html.Div(children, className='kpi-item')
+
+def annotation_box(text, chart_name=None):
+    return html.Div([
+        (html.Div(chart_name, className='chart-source') if chart_name else None),
+        html.Div(text, className='annotation-box')
+    ])
+
+def synthetic_data_banner():
+    return methodology_badge('04', "RESEARCH, SYNTHETIC PRIMARY RESEARCH DATA (PLACEHOLDER FOR PROTOTYPING)")
 
 def create_100_rupee_flow(f_nsv, b_nsv, f_gp, b_gp, f_log, b_log, f_mkt, b_mkt, f_cm, b_cm, f_oth, b_oth, f_ebitda, b_ebitda):
-    def _scale(val, nsv_base): return max(0, min(100, (val / nsv_base) * 100)) if nsv_base else 0
-        
-    def _step(label, sublabel, f_v, b_v):
-        f_pct, b_pct = _scale(f_v, f_nsv), _scale(b_v, b_nsv)
-        return html.Div(style={'display': 'flex', 'alignItems': 'center', 'marginBottom': '20px'}, children=[
-            html.Div(style={'width': '200px', 'paddingRight': '16px'}, children=[
-                html.Div(label, style={'fontSize': '12px', 'fontWeight': '800', 'textTransform': 'uppercase', 'color': COLORS['black']}),
-                html.Div(sublabel, style={'fontSize': '10px', 'color': COLORS['muted']})
-            ]),
-            html.Div(style={'flex': 1}, children=[
-                html.Div(style={'display': 'flex', 'alignItems': 'center', 'marginBottom': '4px'}, children=[
-                    html.Div(f"{f_pct:.1f}%", style={'width': '40px', 'fontSize': '11px', 'fontWeight': '700', 'color': COLORS['fashion'], 'textAlign': 'right', 'marginRight': '12px'}),
-                    html.Div(style={'flex': 1, 'height': '6px', 'background': 'rgba(0,0,0,0.04)'}, children=[
-                        html.Div(style={'width': f"{f_pct}%" if f_v >=0 else f"{-f_pct}%", 'height': '100%', 'background': COLORS['fashion'] if f_v >=0 else COLORS['negative']})
-                    ])
+    def pct(val, nsv): return (val/nsv)*100 if nsv and val else 0
+    
+    metrics = [
+        ("GROSS PROFIT", "Capital after product cost", pct(f_gp, f_nsv), pct(b_gp, b_nsv)),
+        ("FULFILMENT", "Cost of processing the order", pct(f_log, f_nsv), pct(b_log, b_nsv)),
+        ("COMMERCIAL SPEND", "Cost of selling", pct(f_mkt, f_nsv), pct(b_mkt, b_nsv)),
+        ("CONTRIBUTION", "Capital before other expenses", pct(f_cm, f_nsv), pct(b_cm, b_nsv)),
+        ("OTHER EXPENSES", "Overhead costs above EBITDA", pct(f_oth, f_nsv), pct(b_oth, b_nsv)),
+        ("EBITDA", "Capital surviving", pct(f_ebitda, f_nsv), pct(b_ebitda, b_nsv))
+    ]
+    
+    rows = []
+    for title, desc, f_pct, b_pct in metrics:
+        rows.append(html.Div(className='kpi-item', style={'paddingTop': '12px', 'paddingBottom': '12px'}, children=[
+            html.Div(style={'display': 'flex', 'alignItems': 'center', 'gap': '40px'}, children=[
+                html.Div(style={'width': '200px', 'flexShrink': '0'}, children=[
+                    html.Div(title, className='kpi-label'),
+                    html.Div(desc, className='kpi-subtitle', style={'marginBottom': '0'})
                 ]),
-                html.Div(style={'display': 'flex', 'alignItems': 'center'}, children=[
-                    html.Div(f"{b_pct:.1f}%", style={'width': '40px', 'fontSize': '11px', 'fontWeight': '700', 'color': COLORS['beauty'], 'textAlign': 'right', 'marginRight': '12px'}),
-                    html.Div(style={'flex': 1, 'height': '6px', 'background': 'rgba(0,0,0,0.04)'}, children=[
-                        html.Div(style={'width': f"{b_pct}%" if b_v >=0 else f"{-b_pct}%", 'height': '100%', 'background': COLORS['beauty'] if b_v >=0 else COLORS['negative']})
+                html.Div(style={'flex': '1', 'position': 'relative'}, children=[
+                    html.Div(style={'display': 'flex', 'alignItems': 'center', 'marginBottom': '12px'}, children=[
+                        html.Div(f"{f_pct:.1f}%", style={'width': '40px', 'fontSize': '10px', 'fontWeight': '800', 'color': COLORS['fashion']}),
+                        html.Div(style={'flex': '1', 'height': '4px', 'backgroundColor': '#EEE'}, children=[
+                            html.Div(style={'width': f"{min(100, f_pct)}%", 'height': '100%', 'backgroundColor': COLORS['fashion']})
+                        ])
+                    ]),
+                    html.Div(style={'display': 'flex', 'alignItems': 'center'}, children=[
+                        html.Div(f"{b_pct:.1f}%", style={'width': '40px', 'fontSize': '10px', 'fontWeight': '800', 'color': COLORS['beauty']}),
+                        html.Div(style={'flex': '1', 'height': '4px', 'backgroundColor': '#EEE'}, children=[
+                            html.Div(style={'width': f"{min(100, b_pct)}%", 'height': '100%', 'backgroundColor': COLORS['beauty']})
+                        ])
                     ])
                 ])
             ])
-        ])
+        ]))
+    return html.Div(rows)
 
-    return html.Div(className='hairline-top', style={'marginTop': '24px'}, children=[
-        _step('Gross Profit', 'Capital after product cost', f_gp, b_gp),
-        _step('Fulfilment', 'Cost of processing the order', f_log, b_log),
-        _step('Commercial Spend', 'Cost of selling', f_mkt, b_mkt),
-        _step('Contribution', 'Capital before other expenses', f_cm, b_cm),
-        _step('Other Expenses', 'Overhead costs above EBITDA', f_oth, b_oth),
-        _step('EBITDA', 'Capital surviving', f_ebitda, b_ebitda),
-    ])
+def trend_chart(x_labels, y_fashion, y_beauty, title, y_suffix='', annotate_gap=False, yaxis_range=None):
+    fig = go.Figure()
+    f_text = [f"{v:.1f}{y_suffix}" if i in (0, len(y_fashion)-1) else "" for i, v in enumerate(y_fashion)]
+    b_text = [f"{v:.1f}{y_suffix}" if i in (0, len(y_beauty)-1) else "" for i, v in enumerate(y_beauty)]
+    
+    fig.add_trace(go.Scatter(x=x_labels, y=y_fashion, mode='lines+markers+text', line=dict(color=COLORS['fashion'], width=3), marker=dict(size=6), text=f_text, textposition="top center", textfont=dict(color=COLORS['fashion'], weight='bold', size=10), showlegend=False))
+    fig.add_trace(go.Scatter(x=x_labels, y=y_beauty, mode='lines+markers+text', line=dict(color=COLORS['beauty'], width=3), marker=dict(size=6), text=b_text, textposition="bottom center", textfont=dict(color=COLORS['beauty'], weight='bold', size=10), showlegend=False))
+
+    if annotate_gap and y_fashion[-1] is not None and y_beauty[-1] is not None:
+        gap = y_fashion[-1] - y_beauty[-1]
+        fig.add_annotation(x=x_labels[-1], y=(y_fashion[-1] + y_beauty[-1])/2, text=f"{'▲' if gap>0 else '▼'} {abs(gap):.1f} Gap", showarrow=False, xshift=35, font=dict(size=10, color=COLORS['charcoal'], weight='bold'))
+
+    y_axis_layout = dict(showticklabels=False, showgrid=False, zeroline=False)
+    if yaxis_range: y_axis_layout['range'] = yaxis_range
+
+    fig.update_layout(
+        title=dict(text=title, font=dict(size=10, weight='bold', color=COLORS['muted']), x=0, y=0.9),
+        height=220,
+        margin=dict(l=0, r=60, t=30, b=0),
+        paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
+        xaxis=dict(showgrid=False, zeroline=False, showline=False, tickfont=dict(size=10, weight='bold', color=COLORS['charcoal'])),
+        yaxis=y_axis_layout
+    )
+    return fig
+
+def chart_card(chart_component):
+    return html.Div(chart_component)
 
 def create_customer_journey(metrics):
     cols = []
@@ -97,54 +106,24 @@ def create_customer_journey(metrics):
         ]))
     return html.Div(className='journey-matrix', children=cols)
 
-def create_gap_plot(labels, f_vals, b_vals, title, formatter=fmt_number):
+def create_gap_plot(labels, fashion_vals, beauty_vals, title, formatter=fmt_pct):
     fig = go.Figure()
-    for i in range(len(labels)):
-        fv, bv = f_vals[i], b_vals[i]
-        fig.add_trace(go.Scatter(x=[fv, bv], y=[labels[i], labels[i]], mode='lines', line=dict(color=COLORS['border_light'], width=1), showlegend=False))
-        fig.add_trace(go.Scatter(x=[fv], y=[labels[i]], mode='markers+text', marker=dict(color=COLORS['fashion'], size=12), text=[formatter(fv)], textposition="top center", textfont=dict(color=COLORS['fashion'], size=11, weight='bold'), showlegend=False))
-        fig.add_trace(go.Scatter(x=[bv], y=[labels[i]], mode='markers+text', marker=dict(color=COLORS['beauty'], size=12), text=[formatter(bv)], textposition="bottom center", textfont=dict(color=COLORS['beauty'], size=11, weight='bold'), showlegend=False))
     
-    fig.update_layout(**get_chart_layout(
-        title=dict(text=title, font=dict(size=14, weight='bold')), height=len(labels) * 80 + 100,
-        xaxis=dict(showgrid=False, showticklabels=False, zeroline=False), margin=dict(l=0, r=0, t=40, b=0)
-    ))
+    for i, (label, f_val, b_val) in enumerate(zip(labels, fashion_vals, beauty_vals)):
+        if pd.isna(f_val) or pd.isna(b_val): continue
+        min_val, max_val = min(f_val, b_val), max(f_val, b_val)
+        
+        fig.add_trace(go.Scatter(x=[min_val, max_val], y=[i, i], mode='lines', line=dict(color='#E5E5E5', width=2), showlegend=False, hoverinfo='skip'))
+        
+        fig.add_trace(go.Scatter(x=[f_val], y=[i], mode='markers+text', name='Fashion', marker=dict(color=COLORS['fashion'], size=8), text=[formatter(f_val)], textposition='top center', textfont=dict(color=COLORS['fashion'], size=10, weight='bold'), showlegend=False))
+        fig.add_trace(go.Scatter(x=[b_val], y=[i], mode='markers+text', name='Beauty', marker=dict(color=COLORS['beauty'], size=8), text=[formatter(b_val)], textposition='bottom center', textfont=dict(color=COLORS['beauty'], size=10, weight='bold'), showlegend=False))
+
+    fig.update_layout(
+        title=dict(text=title, font=dict(size=10, weight='bold', color=COLORS['muted']), x=0, y=0.9),
+        height=max(120, len(labels) * 50 + 60),
+        margin=dict(l=0, r=40, t=40, b=0),
+        yaxis=dict(tickmode='array', tickvals=list(range(len(labels))), ticktext=labels, autorange="reversed", tickfont=dict(size=10, weight='bold', color=COLORS['charcoal']), showgrid=False, zeroline=False),
+        xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+        paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)'
+    )
     return fig
-
-def trend_chart(x_labels, y_fashion, y_beauty, title, y_suffix='', annotate_gap=False, yaxis_range=None):
-    fig = go.Figure()
-    f_text = [f"{v:.1f}{y_suffix}" if i in (0, len(y_fashion)-1) else "" for i, v in enumerate(y_fashion)]
-    b_text = [f"{v:.1f}{y_suffix}" if i in (0, len(y_beauty)-1) else "" for i, v in enumerate(y_beauty)]
-    
-    fig.add_trace(go.Scatter(x=x_labels, y=y_fashion, mode='lines+markers+text', line=dict(color=COLORS['fashion'], width=3), marker=dict(size=8), text=f_text, textposition="top center", textfont=dict(color=COLORS['fashion'], weight='bold'), showlegend=False))
-    fig.add_trace(go.Scatter(x=x_labels, y=y_beauty, mode='lines+markers+text', line=dict(color=COLORS['beauty'], width=3), marker=dict(size=8), text=b_text, textposition="bottom center", textfont=dict(color=COLORS['beauty'], weight='bold'), showlegend=False))
-
-    if annotate_gap and y_fashion[-1] is not None and y_beauty[-1] is not None:
-        gap = y_fashion[-1] - y_beauty[-1]
-        fig.add_annotation(x=x_labels[-1], y=(y_fashion[-1] + y_beauty[-1])/2, text=f"{'▲' if gap>0 else '▼'} {abs(gap):.1f} Gap", showarrow=False, xshift=45, font=dict(size=12, color=COLORS['charcoal'], weight='bold'))
-
-    y_axis_layout = dict(showticklabels=False, showgrid=False, zeroline=False)
-    if yaxis_range: y_axis_layout['range'] = yaxis_range
-
-    fig.update_layout(**get_chart_layout(
-        title=dict(text=title, font=dict(size=14, weight='bold')), height=320,
-        yaxis=y_axis_layout,
-        margin=dict(r=80, l=0, t=40, b=0)
-    ))
-    return fig
-
-def chart_card(chart_component):
-    if hasattr(chart_component, 'config'):
-        if isinstance(chart_component.config, dict): chart_component.config.update({'displayModeBar': False})
-        else: chart_component.config = {'displayModeBar': False}
-    else: chart_component.config = {'displayModeBar': False}
-    return html.Div([chart_component])
-
-def annotation_box(text, segment='fashion'):
-    return html.Div(text, className='annotation-box')
-
-def methodology_badge(tier, text):
-    return html.Div(text, className='chart-source')
-
-def synthetic_data_banner():
-    return html.Div(txt.BADGE_SYNTHETIC, className='chart-source')
