@@ -281,7 +281,7 @@ def build_page_propositions():
     ])
 
 # ─── APP LAYOUT ───
-app.layout = html.Div(className='app-container', children=[dcc.Location(id='url', refresh=False), make_topnav(), html.Div(id='page-content'), html.Div('RESEARCH, SYNTHETIC PRIMARY RESEARCH DATA (PLACEHOLDER FOR PROTOTYPING)', className='editorial-footnote', style={'padding': '0 40px 16px 40px'})])
+app.layout = html.Div(className='app-container', children=[dcc.Location(id='url', refresh=False), make_topnav(), html.Div(id='page-content')])
 
 # ─── ROUTING ───
 @callback([Output(f'nav-{href.strip("/") or "home"}', 'className') for href, _, _ in txt.NAV_ITEMS], Input('url', 'pathname'))
