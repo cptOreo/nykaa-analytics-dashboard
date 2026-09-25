@@ -5,9 +5,9 @@ def get_hero_copy(f_nsv, year, f_ebitda, b_ebitda):
     """Dynamic copy for Section 1: The Gap"""
     gap = b_ebitda - f_ebitda
     return {
-        'title': "FASHION IS GROWING. THE ECONOMICS ARE DIFFERENT.",
+        'title': "Nykaa hasn’t been able to match Beauty’s EBITDA margins in Fashion, despite running a similar business model, and operating in the market for eight years.",
         'subtitle': "Fashion has expanded meaningfully, but its economics remain structurally different from Beauty.",
-        'body': f"Fashion keeps less of every ₹100 of NSV. Despite scaling to ₹{f_nsv:,.0f} Cr in {year}, Fashion's EBITDA margin sits {gap*100:.1f} points below Beauty. The gap starts before EBITDA — and widens as fulfilment and commercial costs accumulate."
+        'body': f"Fashion keeps less of every ₹100 of NSV. Despite scaling to ₹{f_nsv:,.0f} Cr in {year}, Fashion's EBITDA margin sits {gap:.1f} points below Beauty."
     }
 
 def get_kpi_copy():
@@ -31,11 +31,11 @@ def get_kpi_copy():
 
 def get_section_headers():
     return {
-        1: ("01 — PROBLEM STATEMENT", "The fundamental margin divergence"),
-        2: ("02 — INDUSTRY KPIs", "Following ₹100 of Net Sales Value"),
-        3: ("03 — MARKETING KPIs", "Customer economics and order frequency"),
-        4: ("04 — ANALYSIS", "Why Fashion's EBITDA is lower"),
-        5: ("05 — PROPOSITIONS", "What the numbers point to")
+        1: ("01 : PROBLEM STATEMENT", "Synthesised buisness problem"),
+        2: ("02 : INDUSTRY KPIs", "Following ₹100 of Net Sales Value"),
+        3: ("03 : MARKETING KPIs", "Customer economics and order frequency"),
+        4: ("04 : ANALYSIS", "Why Fashion's EBITDA is lower"),
+        5: ("05 : PROPOSITIONS", "What we think will close the gaps")
     }
 
 def get_analysis_copy():
