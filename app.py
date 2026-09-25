@@ -324,7 +324,7 @@ def build_dashboard(year):
                                      name='Beauty', marker_color=COLORS['beauty'], orientation='h'))
     fig_returns.update_layout(**get_chart_layout(
         height=280, barmode='group',
-        title=dict(text='Return reasons (survey, n=200)', font=dict(size=12), x=0, xanchor='left'),
+        title=dict(text='Return reasons', font=dict(size=12), x=0, xanchor='left'),
         margin=dict(l=180, r=20, t=40, b=30),
     ))
 
@@ -427,18 +427,18 @@ def build_dashboard(year):
             ),
             proposition_card(
                 number=3,
-                proposition="Test targeted loyalty incentives to drive repeat purchase frequency among existing Fashion shoppers.",
-                evidence=f"Fashion customers order {f_opc:.1f} times per year, lagging behind Beauty's {b_opc:.1f} times.",
-                rationale="Higher frequency amortizes the ₹677 CAC across multiple transactions, lowering the effective marketing cost per order and dramatically improving lifetime unit economics.",
-                impact="Accelerated path to the 120M+ break-even volume threshold without relying purely on new user acquisition.",
+                proposition="Launch Cross-Vertical Loyalty Tiers to Push Frequency Toward Break-Even",
+                evidence=f"Fashion customers order {f_opc:.2f} times per year, lagging behind Beauty's {b_opc:.2f} times. With an order contribution of only ₹160 against an ₹888 CAC, the Fashion segment requires approximately 5.5 orders per customer just to break even.",
+                rationale=f"Higher frequency amortizes the ₹888 CAC across multiple transactions, lowering the effective marketing cost per order and dramatically improving lifetime unit economics. Introducing unified loyalty incentives that reward established Beauty shoppers for adding Fashion items to their baskets drives this systemic repeat purchase behavior.",
+                impact="Accelerated path to the 10.1M+ break-even order volume threshold without relying purely on new user acquisition.",
                 measure="Orders / Customer"
             ),
             proposition_card(
                 number=4,
-                proposition="Audit and strategically re-launch the Fashion owned-brand (House of Nykaa) portfolio.",
-                evidence=f"Fashion's owned-brand GMV declined YoY (₹{_safe(_get(FINANCIAL_DATA, 'Fashion', 'Owned Brand GMV', 'FY25'), 0):,.0f} Cr to ₹{_safe(_get(FINANCIAL_DATA, 'Fashion', 'Owned Brand GMV', 'FY26'), 0):,.0f} Cr), while Beauty's surged to ₹{_safe(_get(FINANCIAL_DATA, 'Beauty', 'Owned Brand GMV', 'FY26'), 0):,.0f} Cr.",
-                rationale="Private-label products inherently bypass third-party vendor margins, providing structural uplift to Gross Margins while improving platform exclusivity and lock-in.",
-                impact="Long-term structural protection for Gross Profit, reducing reliance on third-party brand performance.",
+                proposition="Prioritize App Real Estate for High-Margin 'House of Nykaa' Labels",
+                evidence=f"Fashion’s owned-brand share has declined to {_safe(fk.get('Owned Brand Share %'),0):.1f}% of GMV, while Beauty’s owned-brand portfolio successfully captures {_safe(bk.get('Owned Brand Share %'),0):.1f}% of its respective vertical.",
+                rationale="Private-label products inherently bypass third-party vendor margins, providing structural uplift to Gross Margins while improving platform exclusivity and lock-in. Strategically overhauling digital merchandising by heavily skewing search algorithms and prime homepage banners toward in-house labels actively forces this shift.",
+                impact="Long-term structural protection for Gross Profit, reducing reliance on third-party brand performance while increasing platform exclusivity.",
                 measure="Owned Brand Share %"
             ),
         ]),
