@@ -130,10 +130,7 @@ def build_dashboard(year):
         section_anchor('problem', 1, 'Business Problem Statement'),
         html.Div(className='problem-statement', children=[
             html.P(
-                f"Nykaa's Fashion segment grew NSV from ₹573 Cr (FY22) to ₹{_safe(_get(FINANCIAL_DATA, 'Fashion', 'NSV', year), 0):,.0f} Cr ({year}), "
-                f"yet posted an EBITDA margin of {fmt_pct(f_ebitda)} while Beauty achieved {fmt_pct(b_ebitda)}. "
-                "The gap persists despite a similar platform business model. "
-                "This analysis identifies where profitability leaks and what levers could close the gap.",
+                "Nykaa hasn’t been able to match Beauty’s EBITDA margins in Fashion, despite running a similar business model, and operating in the market for eight years.",
                 className='problem-text'
             ),
             html.Div(className='problem-numbers', children=[
