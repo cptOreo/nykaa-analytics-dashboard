@@ -79,7 +79,7 @@ def get_chart_layout(**overrides):
         font=dict(family="Inter, Segoe UI, system-ui, sans-serif", color=COLORS['text_primary']),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
-        margin=dict(l=40, r=20, t=55, b=40),
+        margin=dict(l=40, r=20, t=65, b=40),
         legend=dict(
             orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1,
             font=dict(size=11, color=COLORS['text_secondary']),
@@ -215,7 +215,7 @@ def trend_chart(years, fashion_vals, beauty_vals, title, y_suffix='%',
     fig.update_layout(**get_chart_layout(
         height=height,
         title=dict(text=title, font=dict(size=12, color=COLORS['text_primary']),
-                   x=0, xanchor='left', y=0.98),
+                   x=0, xanchor='left'),
     ))
     return fig
 
@@ -241,7 +241,7 @@ def comparison_bar(categories, fashion_vals, beauty_vals, title,
     ))
     fig.update_layout(**get_chart_layout(
         height=height, barmode='group', bargap=0.25,
-        title=dict(text=title, font=dict(size=12), x=0, xanchor='left', y=0.98),
+        title=dict(text=title, font=dict(size=12), x=0, xanchor='left'),
     ))
     return fig
 
@@ -279,9 +279,9 @@ def dumbbell_chart(categories, fashion_vals, beauty_vals, title, height=260, y_s
 
     fig.update_layout(**get_chart_layout(
         height=height, 
-        title=dict(text=title, font=dict(size=12), x=0, xanchor='left', y=0.98),
+        title=dict(text=title, font=dict(size=12), x=0, xanchor='left'),
         yaxis=dict(autorange="reversed"),
-        margin=dict(l=100, r=40, t=55, b=40)
+        margin=dict(l=100, r=40, t=65, b=40)
     ))
     return fig
 
@@ -312,7 +312,7 @@ def waterfall_chart(labels, values, title, height=280, segment='fashion'):
     ))
     fig.update_layout(**get_chart_layout(
         height=height, showlegend=False,
-        title=dict(text=title, font=dict(size=12), x=0, xanchor='left', y=0.98),
+        title=dict(text=title, font=dict(size=12), x=0, xanchor='left'),
     ))
     return fig
 
