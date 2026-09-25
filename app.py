@@ -256,7 +256,7 @@ def build_dashboard(year):
     
     fig_f_w = waterfall_chart(f_labels, f_values, f'Fashion — {year} P&L (% of NSV)')
     fig_f_w.update_layout(yaxis=dict(range=w_range))
-    fig_b_w = waterfall_chart(b_labels, b_values, f'Beauty — {year} P&L (% of NSV)')
+    fig_b_w = waterfall_chart(b_labels, b_values, f'Beauty — {year} P&L (% of NSV)', segment='beauty')
     fig_b_w.update_layout(yaxis=dict(range=w_range))
 
     # 4c. Cost structure comparison

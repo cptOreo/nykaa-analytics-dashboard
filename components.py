@@ -288,10 +288,10 @@ def dumbbell_chart(categories, fashion_vals, beauty_vals, title, height=260, y_s
 
 # ─── Waterfall Chart ─────────────────────────────────────────────────
 
-def waterfall_chart(labels, values, title, height=280):
+def waterfall_chart(labels, values, title, height=280, segment='fashion'):
     measures = []
     for i, label in enumerate(labels):
-        if i == 0 or label in ('EBITDA', 'Contribution'):
+        if label in ('GP', 'CM', 'EBITDA', 'Contribution'):
             measures.append('total')
         else:
             measures.append('relative')
@@ -302,7 +302,7 @@ def waterfall_chart(labels, values, title, height=280):
         connector=dict(line=dict(color=COLORS['grid'], width=1)),
         decreasing=dict(marker=dict(color=COLORS['negative'])),
         increasing=dict(marker=dict(color=COLORS['positive'])),
-        totals=dict(marker=dict(color=COLORS['fashion'], line=dict(color=COLORS['fashion'], width=1))),
+        totals=dict(marker=dict(color=COLORS[segment], line=dict(color=COLORS[segment], width=1))),
         textposition='outside',
         text=[f"{v:.1f}%" for v in values],
         textfont=dict(size=9, color=COLORS['text_secondary']),
