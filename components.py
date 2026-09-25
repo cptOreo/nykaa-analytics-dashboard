@@ -119,8 +119,24 @@ def section_anchor(section_id, number, title, subtitle=''):
 
 # ─── KPI Card (compact for single-page) ─────────────────────────────
 
+def kpi_sparkline(f_vals, b_vals):
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(y=f_vals, mode='lines', line=dict(color=COLORS['fashion'], width=1.5), hoverinfo='skip'))
+    fig.add_trace(go.Scatter(y=b_vals, mode='lines', line=dict(color=COLORS['beauty'], width=1.5), hoverinfo='skip'))
+    fig.update_layout(
+        margin=dict(l=0, r=0, t=8, b=0),
+        height=24,
+        showlegend=False,
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        xaxis=dict(visible=False, fixedrange=True),
+        yaxis=dict(visible=False, fixedrange=True)
+    )
+    return dcc.Graph(figure=fig, config={'displayModeBar': False})
+
 def kpi_card(label, fashion_val, beauty_val, formatter=fmt_pct,
-             show_gap=True, tooltip=None, higher_is_better=True):
+             show_gap=True, tooltip=None, higher_is_better=True,
+             f_trend=None, b_trend=None):
     f_display = formatter(fashion_val)
     b_display = formatter(beauty_val)
 
@@ -163,6 +179,9 @@ def kpi_card(label, fashion_val, beauty_val, formatter=fmt_pct,
                 html.Span(fmt_pts(gap), className=f'kpi-gap-value {gap_class}'),
             ], className='kpi-gap')
         )
+
+    if f_trend is not None and b_trend is not None:
+        card_children.append(html.Div(kpi_sparkline(f_trend, b_trend), style={'marginTop': '2px'}))
 
     return html.Div(card_children, className='kpi-card')
 
@@ -223,6 +242,46 @@ def comparison_bar(categories, fashion_vals, beauty_vals, title,
     fig.update_layout(**get_chart_layout(
         height=height, barmode='group', bargap=0.25,
         title=dict(text=title, font=dict(size=12), x=0, xanchor='left', y=0.98),
+    ))
+    return fig
+
+
+# ─── Dumbbell Chart ──────────────────────────────────────────────────
+
+def dumbbell_chart(categories, fashion_vals, beauty_vals, title, height=260, y_suffix='%'):
+    fig = go.Figure()
+    
+    for i, cat in enumerate(categories):
+        f_val = fashion_vals[i]
+        b_val = beauty_vals[i]
+        
+        # Add the line connecting them
+        fig.add_trace(go.Scatter(
+            x=[f_val, b_val], y=[cat, cat],
+            mode='lines',
+            line=dict(color=COLORS['grid'], width=3),
+            showlegend=False, hoverinfo='skip'
+        ))
+        
+    # Add Fashion dots
+    fig.add_trace(go.Scatter(
+        x=fashion_vals, y=categories, name='Fashion',
+        mode='markers', marker=dict(color=COLORS['fashion'], size=10),
+        hovertemplate='Fashion: %{x:.1f}' + y_suffix + '<extra></extra>'
+    ))
+    
+    # Add Beauty dots
+    fig.add_trace(go.Scatter(
+        x=beauty_vals, y=categories, name='Beauty',
+        mode='markers', marker=dict(color=COLORS['beauty'], size=10),
+        hovertemplate='Beauty: %{x:.1f}' + y_suffix + '<extra></extra>'
+    ))
+
+    fig.update_layout(**get_chart_layout(
+        height=height, 
+        title=dict(text=title, font=dict(size=12), x=0, xanchor='left', y=0.98),
+        yaxis=dict(autorange="reversed"),
+        margin=dict(l=100, r=40, t=55, b=40)
     ))
     return fig
 

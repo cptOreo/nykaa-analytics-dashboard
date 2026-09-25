@@ -44,6 +44,13 @@ def _get(data, segment, metric, year):
 def _kpis(year, segment):
     return compute_all_financial_kpis(FINANCIAL_DATA, year, segment)
 
+def _trend(segment, metric):
+    res = []
+    for y in YEARS:
+        val = compute_all_financial_kpis(FINANCIAL_DATA, y, segment).get(metric)
+        res.append(_safe(val))
+    return res
+
 def _safe(val, default=None):
     if val is None or (isinstance(val, float) and np.isnan(val)):
         return default
@@ -163,19 +170,26 @@ def build_dashboard(year):
                        f'{year} Fashion vs Beauty — all margins computed as % of NSV'),
         html.Div(className='kpi-row', children=[
             kpi_card('EBITDA MARGIN', _safe(fk.get('EBITDA Margin %')), _safe(bk.get('EBITDA Margin %')),
-                     higher_is_better=True, tooltip='EBITDA ÷ Net Sales Value'),
+                     higher_is_better=True, tooltip='EBITDA ÷ Net Sales Value',
+                     f_trend=_trend('Fashion', 'EBITDA Margin %'), b_trend=_trend('Beauty', 'EBITDA Margin %')),
             kpi_card('CONTRIBUTION MARGIN', _safe(fk.get('Contribution Margin %')), _safe(bk.get('Contribution Margin %')),
-                     higher_is_better=True, tooltip='(GP − Fulfilment − Marketing) ÷ NSV'),
+                     higher_is_better=True, tooltip='(GP − Fulfilment − Marketing) ÷ NSV',
+                     f_trend=_trend('Fashion', 'Contribution Margin %'), b_trend=_trend('Beauty', 'Contribution Margin %')),
             kpi_card('REALISATION (NSV/GMV)', _safe(fk.get('Realisation %')), _safe(bk.get('Realisation %')),
-                     higher_is_better=True, tooltip='Net Sales Value ÷ Gross Merchandise Value'),
+                     higher_is_better=True, tooltip='Net Sales Value ÷ Gross Merchandise Value',
+                     f_trend=_trend('Fashion', 'Realisation %'), b_trend=_trend('Beauty', 'Realisation %')),
             kpi_card('GROSS MARGIN', _safe(fk.get('Gross Margin %')), _safe(bk.get('Gross Margin %')),
-                     higher_is_better=True, tooltip='Gross Profit ÷ NSV'),
+                     higher_is_better=True, tooltip='Gross Profit ÷ NSV',
+                     f_trend=_trend('Fashion', 'Gross Margin %'), b_trend=_trend('Beauty', 'Gross Margin %')),
             kpi_card('MARKETING + S&D %', _safe(fk.get('Marketing + S&D %')), _safe(bk.get('Marketing + S&D %')),
-                     higher_is_better=False),
+                     higher_is_better=False,
+                     f_trend=_trend('Fashion', 'Marketing + S&D %'), b_trend=_trend('Beauty', 'Marketing + S&D %')),
             kpi_card('FULFILMENT %', _safe(fk.get('Fulfilment %')), _safe(bk.get('Fulfilment %')),
-                     higher_is_better=False),
+                     higher_is_better=False,
+                     f_trend=_trend('Fashion', 'Fulfilment %'), b_trend=_trend('Beauty', 'Fulfilment %')),
             kpi_card('ORDERS / CUSTOMER', _safe(fk.get('Orders per Customer')), _safe(bk.get('Orders per Customer')),
-                     formatter=_fmt_ratio, higher_is_better=True),
+                     formatter=_fmt_ratio, higher_is_better=True,
+                     f_trend=_trend('Fashion', 'Orders per Customer'), b_trend=_trend('Beauty', 'Orders per Customer')),
             kpi_card('NSV CAGR (FY23→26)', _safe(f_cagr), _safe(b_cagr),
                      higher_is_better=True, tooltip='3-year compound annual growth rate of NSV'),
         ]),
@@ -190,19 +204,25 @@ def build_dashboard(year):
         html.Div(className='kpi-row', children=[
             kpi_card('CAC PROXY', _safe(fk.get('CAC Proxy')), _safe(bk.get('CAC Proxy')),
                      formatter=fmt_inr, higher_is_better=False,
-                     tooltip='Marketing + S&D ÷ Annual Unique Transacting Customers'),
+                     tooltip='Marketing + S&D ÷ Annual Unique Transacting Customers',
+                     f_trend=_trend('Fashion', 'CAC Proxy'), b_trend=_trend('Beauty', 'CAC Proxy')),
             kpi_card('LOGISTICS / ORDER', _safe(fk.get('Logistics Cost per Order')), _safe(bk.get('Logistics Cost per Order')),
-                     formatter=fmt_inr, higher_is_better=False),
+                     formatter=fmt_inr, higher_is_better=False,
+                     f_trend=_trend('Fashion', 'Logistics Cost per Order'), b_trend=_trend('Beauty', 'Logistics Cost per Order')),
             kpi_card('CONTRIBUTION / ORDER', _safe(fk.get('Contribution per Order')), _safe(bk.get('Contribution per Order')),
-                     formatter=fmt_inr, higher_is_better=True),
+                     formatter=fmt_inr, higher_is_better=True,
+                     f_trend=_trend('Fashion', 'Contribution per Order'), b_trend=_trend('Beauty', 'Contribution per Order')),
             kpi_card('BREAK-EVEN VOLUME',
                      _safe(fk.get('Break-even Volume'), 0) / 1e6 if _safe(fk.get('Break-even Volume')) else None,
                      _safe(bk.get('Break-even Volume'), 0) / 1e6 if _safe(bk.get('Break-even Volume')) else None,
                      formatter=lambda v: f"{v:.1f}M orders" if v else '-',
                      show_gap=False, higher_is_better=False,
-                     tooltip='Other Expenses ÷ Contribution per Order'),
+                     tooltip='Other Expenses ÷ Contribution per Order',
+                     f_trend=[_safe(v)/1e6 if v else None for v in _trend('Fashion', 'Break-even Volume')],
+                     b_trend=[_safe(v)/1e6 if v else None for v in _trend('Beauty', 'Break-even Volume')]),
             kpi_card('OWNED BRAND SHARE', _safe(fk.get('Owned Brand Share %')), _safe(bk.get('Owned Brand Share %')),
-                     higher_is_better=True, tooltip='Owned-brand GMV ÷ Total GMV'),
+                     higher_is_better=True, tooltip='Owned-brand GMV ÷ Total GMV',
+                     f_trend=_trend('Fashion', 'Owned Brand Share %'), b_trend=_trend('Beauty', 'Owned Brand Share %')),
         ]),
         html.Div('Source: Derived from Nykaa financials (P2). CAC Proxy blends acquisition and retention spend.',
                  style={'fontSize': '10px', 'color': '#8E8EA0', 'marginTop': '-16px', 'marginBottom': '8px'}),
@@ -231,12 +251,24 @@ def build_dashboard(year):
 
     f_labels, f_values = _waterfall_pct(fk)
     b_labels, b_values = _waterfall_pct(bk)
+    
+    # Unify waterfall y-axis
+    max_w = max([sum([v for v in f_values if v > 0]), sum([v for v in b_values if v > 0])])
+    min_w = min([sum([v for v in f_values if v < 0]), sum([v for v in b_values if v < 0])])
+    w_range = [min(-20, min_w), max(110, max_w)]
+    
+    fig_f_w = waterfall_chart(f_labels, f_values, f'Fashion — {year} P&L (% of NSV)')
+    fig_f_w.update_layout(yaxis=dict(range=w_range))
+    fig_b_w = waterfall_chart(b_labels, b_values, f'Beauty — {year} P&L (% of NSV)')
+    fig_b_w.update_layout(yaxis=dict(range=w_range))
 
     # 4c. Cost structure comparison
     margin_labels = ['Gross Margin', 'Fulfilment', 'Marketing+S&D', 'Contribution', 'EBITDA']
     margin_keys = ['Gross Margin %', 'Fulfilment %', 'Marketing + S&D %', 'Contribution Margin %', 'EBITDA Margin %']
     f_margins = [_safe(fk.get(m), 0) for m in margin_keys]
     b_margins = [_safe(bk.get(m), 0) for m in margin_keys]
+
+    from components import dumbbell_chart
 
     # 4d. Growth vs Contribution Margin scatter
     import pandas as pd
@@ -308,20 +340,14 @@ def build_dashboard(year):
                                    'Is the gap closing? (EBITDA Margin %)', y_suffix='%'),
                 config={'displayModeBar': False}
             ), source='P1 — Nykaa reported'),
-            chart_card(dcc.Graph(
-                figure=waterfall_chart(f_labels, f_values, f'Fashion — {year} P&L (% of NSV)'),
-                config={'displayModeBar': False}
-            ), source='P2 — Derived'),
-            chart_card(dcc.Graph(
-                figure=waterfall_chart(b_labels, b_values, f'Beauty — {year} P&L (% of NSV)'),
-                config={'displayModeBar': False}
-            ), source='P2 — Derived'),
+            chart_card(dcc.Graph(figure=fig_f_w, config={'displayModeBar': False}), source='P2 — Derived'),
+            chart_card(dcc.Graph(figure=fig_b_w, config={'displayModeBar': False}), source='P2 — Derived'),
         ]),
 
         # Row 2: Cost structure + Scatter
         html.Div(className='chart-grid', children=[
             chart_card(dcc.Graph(
-                figure=comparison_bar(margin_labels, f_margins, b_margins,
+                figure=dumbbell_chart(margin_labels, f_margins, b_margins,
                                       f'Where does Fashion lose? ({year}, % of NSV)', y_suffix='%'),
                 config={'displayModeBar': False}
             ), source='P2 — Derived'),
