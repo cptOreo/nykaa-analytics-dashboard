@@ -447,13 +447,17 @@ def build_dashboard(year):
     # ─── Footer ──────────────────────────────────────────────────
     footer = html.Div(className='dashboard-footer', children=[
         html.Div('Data Sources & Methodology', className='footer-title'),
-        html.Div([
+        html.Div(style={'marginBottom': '20px'}, children=[
             html.P("DATA: Nykaa investor presentations and annual reports, FY22–FY26.", className='footer-text'),
             html.P("METHOD: Derived metrics calculated from the displayed financial inputs. All margin percentages use NSV as denominator.", className='footer-text'),
-            html.P("RESEARCH: Primary-research data ", className='footer-text'),
-            html.P("CAC NOTE", className='footer-text'),
+            html.P("RESEARCH: Primary-research data", className='footer-text'),
+            html.P("CAC NOTE: Public-data proxy calculated as Marketing + S&D ÷ transacting customers. True new-customer CAC is not disclosed.", className='footer-text'),
             html.P("BREAK-EVEN NOTE: Break-even volume is modelled from contribution per order and other expenses.", className='footer-text'),
         ]),
+        html.Div('Project Team', className='footer-title'),
+        html.Div([
+            html.P("ANJALI YADAV 2025204015 • PALAKSH GHILDIYAL 2026204015 • DHAVLA RAVI 2026204004", className='footer-text', style={'fontWeight': '500'})
+        ])
     ])
 
     return html.Div(className='dashboard-page', children=[
