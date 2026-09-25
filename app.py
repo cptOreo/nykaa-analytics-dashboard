@@ -94,7 +94,7 @@ def make_navbar():
         html.Div(className='nav-brand', children=[
             html.Img(
                 src='https://upload.wikimedia.org/wikipedia/commons/0/00/Nykaa_New_Logo.svg',
-                style={'height': '22px', 'filter': 'brightness(0) invert(1)'}
+                style={'height': '22px'}
             ),
             html.Span('Fashion × Beauty', className='nav-brand-text'),
         ]),
