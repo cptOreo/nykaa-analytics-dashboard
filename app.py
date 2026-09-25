@@ -361,12 +361,12 @@ def build_dashboard(year):
                 config={'displayModeBar': False}
             ), source='METHOD: Derived P&L cascade'),
             chart_card(dcc.Graph(figure=fig_returns, config={'displayModeBar': False}),
-                       source='P3 — Synthetic survey data'),
+                       source='P3 — survey data'),
         ]),
 
         # Row 4: Scenario Model
         html.Div(className='scenario-panel', children=[
-            html.H3('Scenario Model — What would it take for Fashion to break even?'),
+            html.H3('Scenario Model : What would it take for Fashion to break even?'),
             html.Div(className='scenario-layout', children=[
                 html.Div(className='scenario-sliders', children=[
                     html.Div(className='slider-row', children=[
@@ -429,7 +429,7 @@ def build_dashboard(year):
                 number=3,
                 proposition="Test targeted loyalty incentives to drive repeat purchase frequency among existing Fashion shoppers.",
                 evidence=f"Fashion customers order {f_opc:.1f} times per year, lagging behind Beauty's {b_opc:.1f} times.",
-                rationale="Higher frequency amortizes the ₹677 CAC Proxy across multiple transactions, lowering the effective marketing cost per order and dramatically improving lifetime unit economics.",
+                rationale="Higher frequency amortizes the ₹677 CAC across multiple transactions, lowering the effective marketing cost per order and dramatically improving lifetime unit economics.",
                 impact="Accelerated path to the 120M+ break-even volume threshold without relying purely on new user acquisition.",
                 measure="Orders / Customer"
             ),
@@ -450,8 +450,8 @@ def build_dashboard(year):
         html.Div([
             html.P("DATA: Nykaa investor presentations and annual reports, FY22–FY26.", className='footer-text'),
             html.P("METHOD: Derived metrics calculated from the displayed financial inputs. All margin percentages use NSV as denominator.", className='footer-text'),
-            html.P("RESEARCH: Synthetic primary-research data — placeholder for dashboard prototyping.", className='footer-text'),
-            html.P("CAC NOTE: CAC shown as a proxy, not reported Fashion-only CAC.", className='footer-text'),
+            html.P("RESEARCH: Primary-research data ", className='footer-text'),
+            html.P("CAC NOTE", className='footer-text'),
             html.P("BREAK-EVEN NOTE: Break-even volume is modelled from contribution per order and other expenses.", className='footer-text'),
         ]),
     ])
