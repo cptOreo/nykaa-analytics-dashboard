@@ -341,6 +341,10 @@ body {
   grid-template-columns: repeat(3, 1fr);
 }
 
+.chart-grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
 .chart-card {
   background: var(--surface-white);
   border: 1px solid var(--border-light);
