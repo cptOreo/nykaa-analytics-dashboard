@@ -79,9 +79,9 @@ def get_chart_layout(**overrides):
         font=dict(family="Inter, Segoe UI, system-ui, sans-serif", color=COLORS['text_primary']),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
-        margin=dict(l=40, r=20, t=65, b=40),
+        margin=dict(l=40, r=20, t=80, b=60),
         legend=dict(
-            orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1,
+            orientation='h', yanchor='top', y=-0.2, xanchor='center', x=0.5,
             font=dict(size=11, color=COLORS['text_secondary']),
             bgcolor='rgba(0,0,0,0)',
         ),
@@ -281,7 +281,7 @@ def dumbbell_chart(categories, fashion_vals, beauty_vals, title, height=260, y_s
         height=height, 
         title=dict(text=title, font=dict(size=12), x=0, xanchor='left'),
         yaxis=dict(autorange="reversed"),
-        margin=dict(l=100, r=40, t=65, b=40)
+        margin=dict(l=100, r=40, t=80, b=60)
     ))
     return fig
 
