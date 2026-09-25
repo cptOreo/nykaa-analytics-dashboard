@@ -493,3 +493,40 @@ body {
   .problem-text { font-size: 24px; }
   .problem-stat-value { font-size: 48px; }
 }
+
+/* ─── Print Styles for Exact PDF Export ────────────────────────────── */
+@media print {
+    @page {
+        margin: 0;
+        size: auto;
+    }
+    
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    body {
+        background-color: #FDFCF9 !important; /* the --bg-color */
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    #page-content {
+        padding: 40px !important;
+        max-width: 100% !important;
+    }
+
+    .top-navbar {
+        position: relative !important; /* un-stick it so it doesn't overlap pages */
+        top: 0 !important;
+    }
+    
+    .kpi-row, .chart-grid, .scenario-panel, .problem-statement, .propositions-list {
+        page-break-inside: avoid !important;
+    }
+    
+    h1, h2, h3, h4, h5, .section-anchor {
+        page-break-after: avoid !important;
+    }
+}
