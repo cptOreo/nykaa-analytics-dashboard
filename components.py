@@ -291,7 +291,9 @@ def dumbbell_chart(categories, fashion_vals, beauty_vals, title, height=260, y_s
 def waterfall_chart(labels, values, title, height=280, segment='fashion'):
     measures = []
     for i, label in enumerate(labels):
-        if label in ('GP', 'CM', 'EBITDA', 'Contribution'):
+        if i == 0:
+            measures.append('absolute')
+        elif label in ('GP', 'CM', 'EBITDA', 'Contribution'):
             measures.append('total')
         else:
             measures.append('relative')
