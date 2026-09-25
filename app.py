@@ -409,30 +409,37 @@ def build_dashboard(year):
         section_anchor('propositions', 5, 'Propositions — Decision Support',
                        'Evidence-based hypotheses, not strategic recommendations'),
         html.Div(className='propositions-grid', children=[
-            proposition_card(1,
-                "Marketing efficiency is the primary lever. Cutting marketing intensity could improve EBITDA faster than chasing gross margin gains.",
-                f"Fashion Marketing + S&D is {f_mkt_pct:.1f}% of NSV vs Beauty's {b_mkt_pct:.1f}%. "
-                f"Gross margins are nearly identical ({_safe(fk.get('Gross Margin %'),0):.1f}% vs {_safe(bk.get('Gross Margin %'),0):.1f}%). "
-                f"A 5-pt reduction in marketing intensity would add ~₹{_safe(fk.get('NSV'),0) * 0.05:,.0f} Cr to contribution profit.",
+            proposition_card(
+                number=1,
+                proposition="Aggressively optimize marketing spend efficiency rather than chasing further gross margin gains.",
+                evidence=f"Fashion's Marketing + S&D consumes {f_mkt_pct:.1f}% of NSV compared to Beauty's {b_mkt_pct:.1f}%, despite both having nearly identical Gross Margins (~{_safe(fk.get('Gross Margin %'),0):.1f}%).",
+                rationale="Since production and sourcing costs are already at parity with Beauty, the primary leakage to Contribution Margin is an inefficient customer acquisition and retention spend.",
+                impact=f"Direct flow-through to Contribution Profit. A 5-point reduction in marketing intensity saves ~₹{_safe(fk.get('NSV'),0) * 0.05:,.0f} Cr annually.",
+                measure="Marketing + S&D % of NSV"
             ),
-            proposition_card(2,
-                "Repeat purchase frequency multiplies customer value. Higher frequency amortizes acquisition costs across more orders.",
-                f"Beauty customers place {b_opc:.1f} orders per year vs Fashion's {f_opc:.1f}. "
-                f"Contribution per customer: Beauty ₹{b_cpo * b_opc:,.0f} vs Fashion ₹{f_cpo * f_opc:,.0f}. "
-                "Increasing Fashion's order frequency by 20% would reduce effective CAC per order.",
+            proposition_card(
+                number=2,
+                proposition="Implement strict platform interventions (e.g., return fees, accurate sizing) to reduce GMV-to-NSV leakage.",
+                evidence=f"Fashion's Realisation is only {f_real:.1f}% compared to Beauty's {b_real:.1f}%. Fashion drops ~{100 - f_real:.0f}% of its Gross Merchandise Value to returns, discounts, and cancellations.",
+                rationale="Revenue is being lost after the marketing cost of acquisition has already been incurred. Plugging this leak monetizes existing demand without requiring additional marketing spend.",
+                impact="Higher Net Sales Value (NSV) and reduced reverse-logistics/fulfilment strain per effective order.",
+                measure="Realisation (NSV/GMV) %"
             ),
-            proposition_card(3,
-                "GMV-to-NSV leakage is a structural disadvantage. Fashion loses ~71% of gross value before it can be monetized.",
-                f"Fashion realisation is {f_real:.1f}% vs Beauty's {b_real:.1f}%. "
-                f"Fashion drops ~{100 - f_real:.0f}% of GMV to returns, discounts, and cancellations before it becomes net sales. "
-                "Improving realisation by 5 pts would be equivalent to acquiring significant additional revenue.",
+            proposition_card(
+                number=3,
+                proposition="Test targeted loyalty incentives to drive repeat purchase frequency among existing Fashion shoppers.",
+                evidence=f"Fashion customers order {f_opc:.1f} times per year, lagging behind Beauty's {b_opc:.1f} times.",
+                rationale="Higher frequency amortizes the ₹677 CAC Proxy across multiple transactions, lowering the effective marketing cost per order and dramatically improving lifetime unit economics.",
+                impact="Accelerated path to the 120M+ break-even volume threshold without relying purely on new user acquisition.",
+                measure="Orders / Customer"
             ),
-            proposition_card(4,
-                "Owned-brand retreat weakens margin control. Fashion's private-label GMV declined while Beauty's surged.",
-                f"Fashion owned-brand GMV fell from ₹{_safe(_get(FINANCIAL_DATA, 'Fashion', 'Owned Brand GMV', 'FY25'), 0):,.0f} Cr (FY25) "
-                f"to ₹{_safe(_get(FINANCIAL_DATA, 'Fashion', 'Owned Brand GMV', 'FY26'), 0):,.0f} Cr (FY26), "
-                f"while Beauty's surged to ₹{_safe(_get(FINANCIAL_DATA, 'Beauty', 'Owned Brand GMV', 'FY26'), 0):,.0f} Cr. "
-                "Private-label products typically carry higher margins and improve platform stickiness.",
+            proposition_card(
+                number=4,
+                proposition="Audit and strategically re-launch the Fashion owned-brand (House of Nykaa) portfolio.",
+                evidence=f"Fashion's owned-brand GMV declined YoY (₹{_safe(_get(FINANCIAL_DATA, 'Fashion', 'Owned Brand GMV', 'FY25'), 0):,.0f} Cr to ₹{_safe(_get(FINANCIAL_DATA, 'Fashion', 'Owned Brand GMV', 'FY26'), 0):,.0f} Cr), while Beauty's surged to ₹{_safe(_get(FINANCIAL_DATA, 'Beauty', 'Owned Brand GMV', 'FY26'), 0):,.0f} Cr.",
+                rationale="Private-label products inherently bypass third-party vendor margins, providing structural uplift to Gross Margins while improving platform exclusivity and lock-in.",
+                impact="Long-term structural protection for Gross Profit, reducing reliance on third-party brand performance.",
+                measure="Owned Brand Share %"
             ),
         ]),
     ])

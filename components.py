@@ -329,10 +329,24 @@ def chart_card(chart_component, source='', full_width=False):
 
 # ─── Proposition Card ────────────────────────────────────────────────
 
-def proposition_card(number, statement, evidence):
+def proposition_card(number, proposition, evidence, rationale, impact, measure):
     return html.Div([
-        html.Div(f"P{number}", className='prop-number'),
-        html.P(f'"{statement}"', className='prop-statement'),
-        html.Div("Evidence", className='prop-evidence-label'),
-        html.P(evidence, className='prop-evidence'),
+        html.Div(f"PROPOSITION {number}", className='prop-number'),
+        html.P(proposition, className='prop-statement', style={'marginBottom': '16px'}),
+        html.Div([
+            html.Span("EVIDENCE: ", style={'fontWeight': '800', 'fontSize': '10px', 'color': COLORS['text_muted']}),
+            html.Span(evidence)
+        ], className='prop-evidence', style={'marginBottom': '8px'}),
+        html.Div([
+            html.Span("RATIONALE: ", style={'fontWeight': '800', 'fontSize': '10px', 'color': COLORS['text_muted']}),
+            html.Span(rationale)
+        ], className='prop-evidence', style={'marginBottom': '8px'}),
+        html.Div([
+            html.Span("EXPECTED IMPACT: ", style={'fontWeight': '800', 'fontSize': '10px', 'color': COLORS['text_muted']}),
+            html.Span(impact)
+        ], className='prop-evidence', style={'marginBottom': '8px'}),
+        html.Div([
+            html.Span("MEASURE: ", style={'fontWeight': '800', 'fontSize': '10px', 'color': COLORS['text_muted']}),
+            html.Span(measure)
+        ], className='prop-evidence'),
     ], className='proposition-card')
