@@ -121,6 +121,7 @@ def build_dashboard(year):
     bk = _kpis(year, 'Beauty')
     df = DF_CUST
 
+    ana = get_analysis_copy()
     # ─── Key values ──────────────────────────────────────────────
     f_ebitda = _safe(fk.get('EBITDA Margin %'), 0)
     b_ebitda = _safe(bk.get('EBITDA Margin %'), 0)
@@ -327,10 +328,8 @@ def build_dashboard(year):
         margin=dict(l=180, r=20, t=40, b=30),
     ))
 
-    ana = get_analysis_copy()
     section_4 = html.Div([
-        section_anchor('analysis', 4, 'Analysis — Visual Representations',
-                       'Charts answer specific analytical questions about the profitability gap'),
+        section_anchor('analysis', 4, headers[4][0], headers[4][1]),
 
         # Row 1: EBITDA trend + Waterfalls
         html.Div(className='chart-grid chart-grid-3', children=[
