@@ -31,11 +31,11 @@ def get_kpi_copy():
 
 def get_section_headers():
     return {
-        1: ("01 — THE GAP", "The fundamental margin divergence"),
-        2: ("02 — WHERE THE MONEY GOES", "Following ₹100 of Net Sales Value"),
-        3: ("03 — THE ACQUISITION LOOP", "Customer economics and order frequency"),
-        4: ("04 — THE PROFITABILITY ENGINE", "Why Fashion's EBITDA is lower"),
-        5: ("05 — WHERE TO LOOK NEXT", "What the numbers point to")
+        1: ("01 — PROBLEM STATEMENT", "The fundamental margin divergence"),
+        2: ("02 — INDUSTRY KPIs", "Following ₹100 of Net Sales Value"),
+        3: ("03 — MARKETING KPIs", "Customer economics and order frequency"),
+        4: ("04 — ANALYSIS", "Why Fashion's EBITDA is lower"),
+        5: ("05 — PROPOSITIONS", "What the numbers point to")
     }
 
 def get_analysis_copy():
