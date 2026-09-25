@@ -19,6 +19,7 @@ from kpi_calculations import (
     calculate_return_rate_survey, calculate_repeat_purchase_rate,
     _is_valid,
 )
+from content import get_hero_copy, get_kpi_copy, get_section_headers, get_analysis_copy
 from components import (
     kpi_card, trend_chart, comparison_bar, waterfall_chart, chart_card,
     proposition_card, section_anchor, COLORS, fmt_pct, fmt_inr, fmt_pts,
@@ -125,14 +126,15 @@ def build_dashboard(year):
     b_ebitda = _safe(bk.get('EBITDA Margin %'), 0)
     gap_ebitda = f_ebitda - b_ebitda
 
-    # ─── § 1. BUSINESS PROBLEM STATEMENT ─────────────────────────
+    # ─── § 1. THE GAP ─────────────────────────
+    hero = get_hero_copy(_safe(_get(FINANCIAL_DATA, 'Fashion', 'NSV', year), 0), year, f_ebitda, b_ebitda)
+    headers = get_section_headers()
+    
     section_1 = html.Div([
-        section_anchor('problem', 1, 'Business Problem Statement'),
+        section_anchor('problem', 1, headers[1][0], headers[1][1]),
         html.Div(className='problem-statement', children=[
-            html.P(
-                "Nykaa hasn’t been able to match Beauty’s EBITDA margins in Fashion, despite running a similar business model, and operating in the market for eight years.",
-                className='problem-text'
-            ),
+            html.P(hero['title'], className='problem-text', style={'marginBottom': '16px'}),
+            html.P(hero['body'], className='editorial-substatement', style={'fontSize': '20px', 'fontFamily': 'var(--font-serif)', 'color': 'var(--text-secondary)', 'marginBottom': '40px', 'maxWidth': '950px'}),
             html.Div(className='problem-numbers', children=[
                 html.Div(className='problem-stat', children=[
                     html.Div('FASHION EBITDA', className='problem-stat-label'),
@@ -162,67 +164,66 @@ def build_dashboard(year):
         _safe(_get(FINANCIAL_DATA, 'Beauty', 'NSV', 'FY26'), 0), 3
     )
 
+    kpi = get_kpi_copy()
     section_2 = html.Div([
-        section_anchor('industry-kpis', 2, 'Industry KPIs',
-                       f'{year} Fashion vs Beauty — all margins computed as % of NSV'),
+        section_anchor('industry-kpis', 2, headers[2][0], headers[2][1]),
         html.Div(className='kpi-row', children=[
-            kpi_card('EBITDA MARGIN', _safe(fk.get('EBITDA Margin %')), _safe(bk.get('EBITDA Margin %')),
-                     higher_is_better=True, tooltip='EBITDA ÷ Net Sales Value',
+            kpi_card(kpi['EBITDA Margin %']['title'], _safe(fk.get('EBITDA Margin %')), _safe(bk.get('EBITDA Margin %')),
+                     higher_is_better=True, tooltip=kpi['EBITDA Margin %']['subtitle'],
                      f_trend=_trend('Fashion', 'EBITDA Margin %'), b_trend=_trend('Beauty', 'EBITDA Margin %')),
-            kpi_card('CONTRIBUTION MARGIN', _safe(fk.get('Contribution Margin %')), _safe(bk.get('Contribution Margin %')),
-                     higher_is_better=True, tooltip='(GP − Fulfilment − Marketing) ÷ NSV',
+            kpi_card(kpi['Contribution Margin %']['title'], _safe(fk.get('Contribution Margin %')), _safe(bk.get('Contribution Margin %')),
+                     higher_is_better=True, tooltip=kpi['Contribution Margin %']['subtitle'],
                      f_trend=_trend('Fashion', 'Contribution Margin %'), b_trend=_trend('Beauty', 'Contribution Margin %')),
-            kpi_card('REALISATION (NSV/GMV)', _safe(fk.get('Realisation %')), _safe(bk.get('Realisation %')),
-                     higher_is_better=True, tooltip='Net Sales Value ÷ Gross Merchandise Value',
+            kpi_card(kpi['Realisation %']['title'], _safe(fk.get('Realisation %')), _safe(bk.get('Realisation %')),
+                     higher_is_better=True, tooltip=kpi['Realisation %']['subtitle'],
                      f_trend=_trend('Fashion', 'Realisation %'), b_trend=_trend('Beauty', 'Realisation %')),
-            kpi_card('GROSS MARGIN', _safe(fk.get('Gross Margin %')), _safe(bk.get('Gross Margin %')),
-                     higher_is_better=True, tooltip='Gross Profit ÷ NSV',
+            kpi_card(kpi['Gross Margin %']['title'], _safe(fk.get('Gross Margin %')), _safe(bk.get('Gross Margin %')),
+                     higher_is_better=True, tooltip=kpi['Gross Margin %']['subtitle'],
                      f_trend=_trend('Fashion', 'Gross Margin %'), b_trend=_trend('Beauty', 'Gross Margin %')),
-            kpi_card('MARKETING + S&D %', _safe(fk.get('Marketing + S&D %')), _safe(bk.get('Marketing + S&D %')),
+            kpi_card(kpi['Marketing + S&D %']['title'], _safe(fk.get('Marketing + S&D %')), _safe(bk.get('Marketing + S&D %')),
                      higher_is_better=False,
                      f_trend=_trend('Fashion', 'Marketing + S&D %'), b_trend=_trend('Beauty', 'Marketing + S&D %')),
-            kpi_card('FULFILMENT %', _safe(fk.get('Fulfilment %')), _safe(bk.get('Fulfilment %')),
+            kpi_card(kpi['Fulfilment %']['title'], _safe(fk.get('Fulfilment %')), _safe(bk.get('Fulfilment %')),
                      higher_is_better=False,
                      f_trend=_trend('Fashion', 'Fulfilment %'), b_trend=_trend('Beauty', 'Fulfilment %')),
-            kpi_card('ORDERS / CUSTOMER', _safe(fk.get('Orders per Customer')), _safe(bk.get('Orders per Customer')),
+            kpi_card(kpi['Orders per Customer']['title'], _safe(fk.get('Orders per Customer')), _safe(bk.get('Orders per Customer')),
                      formatter=_fmt_ratio, higher_is_better=True,
                      f_trend=_trend('Fashion', 'Orders per Customer'), b_trend=_trend('Beauty', 'Orders per Customer')),
-            kpi_card('NSV CAGR (FY23→26)', _safe(f_cagr), _safe(b_cagr),
-                     higher_is_better=True, tooltip='3-year compound annual growth rate of NSV'),
+            kpi_card(kpi['NSV CAGR']['title'], _safe(f_cagr), _safe(b_cagr),
+                     higher_is_better=True, tooltip=kpi['NSV CAGR']['subtitle']),
         ]),
-        html.Div('Source: Nykaa reported financials (P1) and derived calculations (P2). All margins use NSV as denominator.',
-                 style={'fontSize': '10px', 'color': '#8E8EA0', 'marginTop': '-16px', 'marginBottom': '8px'}),
+        html.Div('METHOD: Derived metrics calculated from the displayed financial inputs (P1).',
+                 style={'fontSize': '9px', 'color': 'var(--text-muted)', 'marginTop': '-16px', 'marginBottom': '8px', 'fontWeight': '800'}),
     ])
 
     # ─── § 3. MARKETING METRICS (5) ──────────────────────────────
     section_3 = html.Div([
-        section_anchor('marketing-metrics', 3, 'Marketing Metrics',
-                       f'{year} customer acquisition and unit economics'),
+        section_anchor('marketing-metrics', 3, headers[3][0], headers[3][1]),
         html.Div(className='kpi-row', children=[
-            kpi_card('CAC PROXY', _safe(fk.get('CAC Proxy')), _safe(bk.get('CAC Proxy')),
+            kpi_card(kpi['CAC Proxy']['title'], _safe(fk.get('CAC Proxy')), _safe(bk.get('CAC Proxy')),
                      formatter=fmt_inr, higher_is_better=False,
-                     tooltip='Marketing + S&D ÷ Annual Unique Transacting Customers',
+                     tooltip=kpi['CAC Proxy']['subtitle'],
                      f_trend=_trend('Fashion', 'CAC Proxy'), b_trend=_trend('Beauty', 'CAC Proxy')),
-            kpi_card('LOGISTICS / ORDER', _safe(fk.get('Logistics Cost per Order')), _safe(bk.get('Logistics Cost per Order')),
+            kpi_card(kpi['Logistics Cost per Order']['title'], _safe(fk.get('Logistics Cost per Order')), _safe(bk.get('Logistics Cost per Order')),
                      formatter=fmt_inr, higher_is_better=False,
                      f_trend=_trend('Fashion', 'Logistics Cost per Order'), b_trend=_trend('Beauty', 'Logistics Cost per Order')),
-            kpi_card('CONTRIBUTION / ORDER', _safe(fk.get('Contribution per Order')), _safe(bk.get('Contribution per Order')),
+            kpi_card(kpi['Contribution per Order']['title'], _safe(fk.get('Contribution per Order')), _safe(bk.get('Contribution per Order')),
                      formatter=fmt_inr, higher_is_better=True,
                      f_trend=_trend('Fashion', 'Contribution per Order'), b_trend=_trend('Beauty', 'Contribution per Order')),
-            kpi_card('BREAK-EVEN VOLUME',
+            kpi_card(kpi['Break-even Volume']['title'],
                      _safe(fk.get('Break-even Volume'), 0) / 1e6 if _safe(fk.get('Break-even Volume')) else None,
                      _safe(bk.get('Break-even Volume'), 0) / 1e6 if _safe(bk.get('Break-even Volume')) else None,
                      formatter=lambda v: f"{v:.1f}M orders" if v else '-',
                      show_gap=False, higher_is_better=False,
-                     tooltip='Other Expenses ÷ Contribution per Order',
+                     tooltip=kpi['Break-even Volume']['subtitle'],
                      f_trend=[_safe(v)/1e6 if v else None for v in _trend('Fashion', 'Break-even Volume')],
                      b_trend=[_safe(v)/1e6 if v else None for v in _trend('Beauty', 'Break-even Volume')]),
-            kpi_card('OWNED BRAND SHARE', _safe(fk.get('Owned Brand Share %')), _safe(bk.get('Owned Brand Share %')),
-                     higher_is_better=True, tooltip='Owned-brand GMV ÷ Total GMV',
+            kpi_card(kpi['Owned Brand Share %']['title'], _safe(fk.get('Owned Brand Share %')), _safe(bk.get('Owned Brand Share %')),
+                     higher_is_better=True, tooltip=kpi['Owned Brand Share %']['subtitle'],
                      f_trend=_trend('Fashion', 'Owned Brand Share %'), b_trend=_trend('Beauty', 'Owned Brand Share %')),
         ]),
-        html.Div('Source: Derived from Nykaa financials (P2). CAC Proxy blends acquisition and retention spend.',
-                 style={'fontSize': '10px', 'color': '#8E8EA0', 'marginTop': '-16px', 'marginBottom': '8px'}),
+        html.Div('CAC NOTE: Public-data proxy calculated as Marketing + S&D ÷ transacting customers. True new-customer CAC is not disclosed.',
+                 style={'fontSize': '9px', 'color': 'var(--text-muted)', 'marginTop': '-16px', 'marginBottom': '8px', 'fontWeight': '800'}),
     ])
 
     # ─── § 4. ANALYSIS — VISUAL REPRESENTATIONS ──────────────────
@@ -254,9 +255,9 @@ def build_dashboard(year):
     min_w = min([sum([v for v in f_values if v < 0]), sum([v for v in b_values if v < 0])])
     w_range = [min(-20, min_w), max(110, max_w)]
     
-    fig_f_w = waterfall_chart(f_labels, f_values, f'Fashion — {year} P&L (% of NSV)')
+    fig_f_w = waterfall_chart(f_labels, f_values, ana['waterfall_title'] + f'<br><span style="font-size:10px;color:var(--text-muted)">{ana["waterfall_sub"]}</span>')
     fig_f_w.update_layout(yaxis=dict(range=w_range))
-    fig_b_w = waterfall_chart(b_labels, b_values, f'Beauty — {year} P&L (% of NSV)', segment='beauty')
+    fig_b_w = waterfall_chart(b_labels, b_values, f'BEAUTY P&L (% of NSV)', segment='beauty')
     fig_b_w.update_layout(yaxis=dict(range=w_range))
 
     # 4c. Cost structure comparison
@@ -302,7 +303,7 @@ def build_dashboard(year):
                 ))
     fig_scatter.update_layout(**get_chart_layout(
         height=280,
-        title=dict(text='Does faster growth improve margins?', font=dict(size=12), x=0, xanchor='left'),
+        title=dict(text=ana['scatter_title'] + f'<br><span style="font-size:10px;color:var(--text-muted)">{ana["scatter_sub"]}</span>', font=dict(size=12), x=0, xanchor='left'),
         xaxis_title='NSV YoY Growth %', yaxis_title='Contribution Margin %',
     ))
 
@@ -326,6 +327,7 @@ def build_dashboard(year):
         margin=dict(l=180, r=20, t=40, b=30),
     ))
 
+    ana = get_analysis_copy()
     section_4 = html.Div([
         section_anchor('analysis', 4, 'Analysis — Visual Representations',
                        'Charts answer specific analytical questions about the profitability gap'),
@@ -334,22 +336,22 @@ def build_dashboard(year):
         html.Div(className='chart-grid chart-grid-3', children=[
             chart_card(dcc.Graph(
                 figure=trend_chart(YEARS, f_ebitda_pct, b_ebitda_pct,
-                                   'Is the gap closing? (EBITDA Margin %)', y_suffix='%'),
+                                   'THE EBITDA GAP PERSISTS<br><span style="font-size:10px;color:var(--text-muted)">Fashion vs Beauty, FY23–FY26</span>', y_suffix='%'),
                 config={'displayModeBar': False}
-            ), source='P1 — Nykaa reported'),
-            chart_card(dcc.Graph(figure=fig_f_w, config={'displayModeBar': False}), source='P2 — Derived'),
-            chart_card(dcc.Graph(figure=fig_b_w, config={'displayModeBar': False}), source='P2 — Derived'),
+            ), source='DATA: Company financial reports'),
+            chart_card(dcc.Graph(figure=fig_f_w, config={'displayModeBar': False}), source='METHOD: Derived P&L cascade'),
+            chart_card(dcc.Graph(figure=fig_b_w, config={'displayModeBar': False}), source='METHOD: Derived P&L cascade'),
         ]),
 
         # Row 2: Cost structure + Scatter
         html.Div(className='chart-grid', children=[
             chart_card(dcc.Graph(
                 figure=dumbbell_chart(margin_labels, f_margins, b_margins,
-                                      f'Where does Fashion lose? ({year}, % of NSV)', y_suffix='%'),
+                                      ana['cost_title'] + f'<br><span style="font-size:10px;color:var(--text-muted)">{ana["cost_sub"]}</span>', y_suffix='%'),
                 config={'displayModeBar': False}
-            ), source='P2 — Derived'),
+            ), source='METHOD: Derived P&L cascade'),
             chart_card(dcc.Graph(figure=fig_scatter, config={'displayModeBar': False}),
-                       source='P2 — Derived'),
+                       source='METHOD: Derived P&L cascade'),
         ]),
 
         # Row 3: Owned brand trend + Return reasons
@@ -358,7 +360,7 @@ def build_dashboard(year):
                 figure=trend_chart(YEARS, f_owned, b_owned,
                                    'Is Fashion building its owned-brand advantage?', y_suffix='%'),
                 config={'displayModeBar': False}
-            ), source='P2 — Derived'),
+            ), source='METHOD: Derived P&L cascade'),
             chart_card(dcc.Graph(figure=fig_returns, config={'displayModeBar': False}),
                        source='P3 — Synthetic survey data'),
         ]),
@@ -406,8 +408,7 @@ def build_dashboard(year):
     b_cpo = _safe(bk.get('Contribution per Order'), 0)
 
     section_5 = html.Div([
-        section_anchor('propositions', 5, 'Propositions — Decision Support',
-                       'Evidence-based hypotheses, not strategic recommendations'),
+        section_anchor('propositions', 5, headers[5][0], headers[5][1]),
         html.Div(className='propositions-grid', children=[
             proposition_card(
                 number=1,
@@ -448,12 +449,11 @@ def build_dashboard(year):
     footer = html.Div(className='dashboard-footer', children=[
         html.Div('Data Sources & Methodology', className='footer-title'),
         html.Div([
-            html.P("P1 (Reported): Nykaa investor presentations and annual reports, FY22–FY26.", className='footer-text'),
-            html.P("P2 (Derived): Calculated from P1 data. All margin percentages use NSV as denominator.", className='footer-text'),
-            html.P("P3 (Synthetic): Customer survey data is synthetic placeholder for prototyping (n=200, 100 respondents × 2 categories). "
-                   "All P3 metrics should be validated with actual primary research before use in decision-making.", className='footer-text'),
-            html.P("Scenario model: Marketing and fulfilment reductions flow through to contribution margin. "
-                   "Order growth and AOV improvement scale NSV proportionally. Break-even volume = Other Expenses ÷ Contribution per Order.", className='footer-text'),
+            html.P("DATA: Nykaa investor presentations and annual reports, FY22–FY26.", className='footer-text'),
+            html.P("METHOD: Derived metrics calculated from the displayed financial inputs. All margin percentages use NSV as denominator.", className='footer-text'),
+            html.P("RESEARCH: Synthetic primary-research data — placeholder for dashboard prototyping.", className='footer-text'),
+            html.P("CAC NOTE: CAC shown as a proxy, not reported Fashion-only CAC.", className='footer-text'),
+            html.P("BREAK-EVEN NOTE: Break-even volume is modelled from contribution per order and other expenses.", className='footer-text'),
         ]),
     ])
 
